@@ -1,5 +1,5 @@
-const V = "core-reset-v2";
-const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png"];
+const V = "core-reset-v3";
+const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "gifs/breathing.gif", "gifs/slides.gif", "gifs/bridge.gif", "gifs/birddog.gif", "gifs/sideplank.gif", "gifs/rowing.gif", "gifs/breathing.png", "gifs/slides.png", "gifs/bridge.png", "gifs/birddog.png", "gifs/sideplank.png", "gifs/rowing.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
 });

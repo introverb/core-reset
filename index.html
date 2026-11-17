@@ -41,9 +41,11 @@ header span{font:500 12px/1 var(--mono);border:2.5px solid var(--ink);border-rad
 .tag{font:500 11px/1.3 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:6px 0 0}
 .badge{flex:none;font:700 11px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;border:2.5px solid var(--ink);border-radius:999px;padding:6px 11px;white-space:nowrap;display:flex;align-items:center;gap:6px}
 .badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--org)}
-.fig{border:3px solid var(--ink);padding:4px 4px 0;cursor:pointer;background-color:var(--paper);
+.fig{border:3px solid var(--ink);padding:0;line-height:0;cursor:pointer;background-color:var(--paper);
   background-image:linear-gradient(rgba(18,18,18,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(18,18,18,.13) 1px,transparent 1px);background-size:20px 20px}
-.fig svg{display:block;width:100%;height:auto}
+.fig svg,.fig img{display:block;width:100%;height:auto}
+.hint{margin:-6px 0 0;font:500 11px var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.cap b{text-transform:uppercase}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .seg button{font:700 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink);background:transparent;border:3px solid var(--ink);padding:11px 6px;cursor:pointer}
 .card[data-s="a"] .seg button[data-p="a"],.card[data-s="b"] .seg button[data-p="b"]{background:var(--org)}
@@ -170,7 +172,7 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
   </div>
   <ul class="cues">
     <li><i>→</i><span>Swipe or use the buttons to flip through.</span></li>
-    <li><i>↔</i><span>Tap a picture to switch between start and move.</span></li>
+    <li><i>↔</i><span>Pictures loop on their own. Tap one to freeze it. Orange marks where to feel the move.</span></li>
     <li><i>●</i><span><b>Pelvic floor lift:</b> a gentle lift at about 30% effort, as if stopping a stream of urine. Fully release on the way back.</span></li>
     <li><i>○</i><span><b>Pace:</b> exhale on every effort. About 2 minutes per move.</span></li>
   </ul>
@@ -182,27 +184,9 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-s="a">
 <div class="inner">
   <div class="top"><div><h2>1. Ribcage breathing</h2><p class="tag">Fixes rib flare</p></div><span class="badge">2 min</span></div>
-  <div class="fig" data-tap>
-    <svg viewBox="0 0 320 170" role="img" aria-label="Person lying on their back with knees bent, ribs widening on the inhale and closing down on the exhale">
-      <line class="fl" x1="16" y1="153" x2="304" y2="153"/>
-      <line class="l" x1="140" y1="141" x2="185" y2="96"/><line class="l" x1="185" y1="96" x2="222" y2="146"/><line class="l" x1="222" y1="146" x2="238" y2="148"/>
-      <line class="t" x1="66" y1="141" x2="140" y2="141"/>
-      <circle class="hd" cx="46" cy="138" r="13"/>
-      <polyline class="a" points="80,136 98,114 114,130"/>
-      <g class="pa">
-        <ellipse class="hlf" cx="106" cy="141" rx="27" ry="14"/>
-        <path class="ar" d="M92 118 L84 102 M84 102 L84 111 M84 102 L93 105"/>
-        <path class="ar" d="M120 118 L128 102 M128 102 L128 111 M128 102 L119 105"/>
-      </g>
-      <g class="pb">
-        <ellipse class="hlf" cx="106" cy="141" rx="19" ry="10"/>
-        <path class="ar" d="M84 102 L92 118 M92 118 L92 109 M92 118 L83 115"/>
-        <path class="ar" d="M128 102 L120 118 M120 118 L120 109 M120 118 L129 115"/>
-      </g>
-    </svg>
-  </div>
-  <div class="seg"><button data-p="a">Inhale</button><button data-p="b">Exhale</button></div>
-  <p class="cap"><span class="pa">Ribs widen into your hands and press toward the floor.</span><span class="pb">Ribs glide down and in, like closing an umbrella.</span></p>
+  <div class="fig" data-tap><img class="gif" src="gifs/breathing.gif" data-still="gifs/breathing.png" data-live="gifs/breathing.gif" alt="Person lying on their back breathing, ribs widening on the inhale and closing down on the exhale" width="480" loading="eager"></div>
+  <p class="cap"><b>Inhale:</b> ribs widen into your hands.<br><b>Exhale:</b> ribs glide down and in.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
     <li><i>1</i><span>Hands on lower ribs, knees bent, feet flat.</span></li>
     <li><i>2</i><span>Exhale slowly, with a gentle pelvic floor lift.</span></li>
@@ -216,25 +200,9 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-s="a">
 <div class="inner">
   <div class="top"><div><h2>2. Heel slides</h2><p class="tag">Deep core, pelvic floor</p></div><span class="badge">2 min</span></div>
-  <div class="fig" data-tap>
-    <svg viewBox="0 0 320 170" role="img" aria-label="Person lying on their back sliding one heel out along the floor while the other knee stays bent">
-      <line class="fl" x1="16" y1="153" x2="304" y2="153"/>
-      <line class="l far" x1="140" y1="141" x2="193" y2="94"/><line class="l far" x1="193" y1="94" x2="232" y2="146"/><line class="l far" x1="232" y1="146" x2="248" y2="148"/>
-      <line class="t" x1="66" y1="141" x2="140" y2="141"/>
-      <circle class="hd" cx="46" cy="138" r="13"/>
-      <polyline class="a" points="80,146 112,148 130,148"/>
-      <g class="pa">
-        <line class="l" x1="140" y1="141" x2="185" y2="96"/><line class="l" x1="185" y1="96" x2="222" y2="146"/><line class="l" x1="222" y1="146" x2="238" y2="148"/>
-      </g>
-      <g class="pb">
-        <line class="l mv" x1="140" y1="143" x2="262" y2="146"/>
-        <path class="ar" d="M190 124 L248 124 M248 124 L240 118 M248 124 L240 130"/>
-      </g>
-      <circle class="dot" cx="140" cy="149" r="5"/>
-    </svg>
-  </div>
-  <div class="seg"><button data-p="a">Start</button><button data-p="b">Slide</button></div>
-  <p class="cap"><span class="pa">Both knees bent. Ribs down, belly gently drawn in.</span><span class="pb">Exhale, lift the pelvic floor, and slide one heel out.</span></p>
+  <div class="fig" data-tap><img class="gif" src="gifs/slides.gif" data-still="gifs/slides.png" data-live="gifs/slides.gif" alt="Person lying on their back sliding one heel out along the floor and back" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> both knees bent, ribs down.<br><b>Slide:</b> exhale and slide one heel out.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
     <li><i>1</i><span>Slide only as far as your ribs and low back stay still.</span></li>
     <li><i>2</i><span>Inhale to bring the heel back and release.</span></li>
@@ -248,28 +216,9 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-s="a">
 <div class="inner">
   <div class="top"><div><h2>3. Glute bridge</h2><p class="tag">Pelvic floor, glutes</p></div><span class="badge">2 min</span></div>
-  <div class="fig" data-tap>
-    <svg viewBox="0 0 320 170" role="img" aria-label="Person lying on their back, then lifting hips so shoulders, hips and knees form a straight line">
-      <line class="fl" x1="16" y1="153" x2="304" y2="153"/>
-      <circle class="hd" cx="46" cy="138" r="13"/>
-      <g class="pa">
-        <line class="l" x1="140" y1="141" x2="185" y2="96"/><line class="l" x1="185" y1="96" x2="214" y2="146"/><line class="l" x1="214" y1="146" x2="230" y2="148"/>
-        <line class="t" x1="66" y1="141" x2="140" y2="141"/>
-        <polyline class="a" points="80,147 112,148 128,148"/>
-        <circle class="dot" cx="140" cy="149" r="5"/>
-      </g>
-      <g class="pb">
-        <line class="l" x1="140" y1="108" x2="192" y2="84"/><line class="l" x1="192" y1="84" x2="212" y2="146"/><line class="l" x1="212" y1="146" x2="228" y2="148"/>
-        <line class="t" x1="66" y1="141" x2="140" y2="108"/>
-        <polyline class="a" points="80,147 112,148 128,148"/>
-        <line class="dash" x1="60" y1="130" x2="196" y2="70"/>
-        <path class="ar" d="M140 92 L140 64 M140 64 L133 72 M140 64 L147 72"/>
-        <circle class="dot" cx="137" cy="116" r="5"/>
-      </g>
-    </svg>
-  </div>
-  <div class="seg"><button data-p="a">Start</button><button data-p="b">Lift</button></div>
-  <p class="cap"><span class="pa">Feet flat, hip-width apart, arms resting at your sides.</span><span class="pb">Shoulders, hips and knees line up. Ribs stay down.</span></p>
+  <div class="fig" data-tap><img class="gif" src="gifs/bridge.gif" data-still="gifs/bridge.png" data-live="gifs/bridge.gif" alt="Person lying on their back lifting hips into a bridge and lowering" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> feet flat, arms at your sides.<br><b>Lift:</b> shoulders, hips, knees in a line.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
     <li><i>1</i><span>Exhale, lift the pelvic floor, press through your feet and roll up.</span></li>
     <li><i>2</i><span>Inhale at the top. Relax the pelvic floor as you lower.</span></li>
@@ -283,30 +232,9 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-s="a">
 <div class="inner">
   <div class="top"><div><h2>4. Bird dog</h2><p class="tag">Deep core, back</p></div><span class="badge">2 min</span></div>
-  <div class="fig" data-tap>
-    <svg viewBox="0 0 320 180" role="img" aria-label="Person on hands and knees, then reaching one arm forward and the opposite leg back while keeping the back flat">
-      <line class="fl" x1="16" y1="164" x2="304" y2="164"/>
-      <circle class="hd" cx="234" cy="82" r="12"/>
-      <line class="l" x1="205" y1="96" x2="222" y2="88"/>
-      <!-- supports (far side) -->
-      <line class="l far" x1="118" y1="96" x2="122" y2="156"/><line class="l far" x1="122" y1="156" x2="78" y2="158"/>
-      <line class="l far" x1="198" y1="96" x2="200" y2="158"/>
-      <line class="t" x1="110" y1="96" x2="205" y2="96"/>
-      <g class="pa">
-        <line class="l" x1="110" y1="96" x2="114" y2="156"/><line class="l" x1="114" y1="156" x2="70" y2="158"/>
-        <line class="l" x1="205" y1="96" x2="209" y2="158"/>
-      </g>
-      <g class="pb">
-        <line class="l mv" x1="205" y1="96" x2="288" y2="92"/>
-        <line class="l mv" x1="110" y1="96" x2="30" y2="100"/>
-        <path class="ar" d="M262 72 L296 72 M296 72 L289 66 M296 72 L289 78"/>
-        <path class="ar" d="M58 80 L24 80 M24 80 L31 74 M24 80 L31 86"/>
-      </g>
-      <line class="dash" x1="100" y1="76" x2="216" y2="76"/>
-    </svg>
-  </div>
-  <div class="seg"><button data-p="a">Start</button><button data-p="b">Reach</button></div>
-  <p class="cap"><span class="pa">Hands under shoulders, knees under hips. Back flat.</span><span class="pb">Reach opposite arm and leg. Hips stay level.</span></p>
+  <div class="fig" data-tap><img class="gif" src="gifs/birddog.gif" data-still="gifs/birddog.png" data-live="gifs/birddog.gif" alt="Person on hands and knees reaching one arm forward and the opposite leg back" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> hands under shoulders, knees under hips.<br><b>Reach:</b> opposite arm and leg, hips level.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
     <li><i>1</i><span>Exhale, lift the pelvic floor, and reach to the length of your body.</span></li>
     <li><i>2</i><span>Hold 2 seconds, then return. Pretend a tray of water sits on your back.</span></li>
@@ -320,31 +248,9 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-s="a">
 <div class="inner">
   <div class="top"><div><h2>5. Side plank from knees</h2><p class="tag">Side core, ribs over hips</p></div><span class="badge">2 min</span></div>
-  <div class="fig" data-tap>
-    <svg viewBox="0 0 320 180" role="img" aria-label="Person lying on their side on a forearm with knees bent, then lifting hips into a straight line from shoulder to knee">
-      <line class="fl" x1="16" y1="166" x2="304" y2="166"/>
-      <line class="l" x1="228" y1="156" x2="252" y2="160"/>
-      <line class="l" x1="84" y1="158" x2="106" y2="160"/>
-      <g class="pa">
-        <circle class="hd" cx="58" cy="116" r="12"/>
-        <line class="t" x1="84" y1="130" x2="160" y2="152"/>
-        <line class="l" x1="160" y1="152" x2="228" y2="156"/>
-        <line class="l" x1="84" y1="130" x2="84" y2="158"/>
-        <line class="a" x1="84" y1="130" x2="94" y2="92"/>
-      </g>
-      <g class="pb">
-        <circle class="hd" cx="58" cy="100" r="12"/>
-        <line class="t" x1="84" y1="114" x2="160" y2="132"/>
-        <line class="l" x1="160" y1="132" x2="228" y2="156"/>
-        <line class="l" x1="84" y1="114" x2="84" y2="158"/>
-        <line class="a" x1="84" y1="114" x2="96" y2="76"/>
-        <line class="dash" x1="70" y1="108" x2="236" y2="152"/>
-        <path class="ar" d="M160 110 L160 82 M160 82 L153 90 M160 82 L167 90"/>
-      </g>
-    </svg>
-  </div>
-  <div class="seg"><button data-p="a">Start</button><button data-p="b">Lift</button></div>
-  <p class="cap"><span class="pa">Elbow under shoulder, knees bent and stacked.</span><span class="pb">Hips up. Shoulder, hip and knee make one line.</span></p>
+  <div class="fig" data-tap><img class="gif" src="gifs/sideplank.gif" data-still="gifs/sideplank.png" data-live="gifs/sideplank.gif" alt="Person on their side lifting hips from a bent-knee side plank" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> elbow under shoulder, knees bent.<br><b>Lift:</b> shoulder, hip, knee in a line.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
     <li><i>1</i><span>Exhale, lift the pelvic floor, and raise your hips.</span></li>
     <li><i>2</i><span>Breathe steadily and hold 20 to 30 seconds.</span></li>
@@ -358,36 +264,9 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-s="a">
 <div class="inner">
   <div class="top"><div><h2>Rowing, easy</h2><p class="tag">After the core routine</p></div><span class="badge">10 min</span></div>
-  <div class="fig" data-tap>
-    <svg viewBox="0 0 320 180" role="img" aria-label="Person on a rowing machine at the catch with knees bent and arms forward, then at the finish with legs extended and a slight lean back">
-      <line class="mach" x1="64" y1="160" x2="304" y2="160"/>
-      <circle class="mach" cx="38" cy="130" r="26"/><circle cx="38" cy="130" r="5" fill="var(--far)"/>
-      <line class="mach" x1="88" y1="128" x2="98" y2="154"/>
-      <g class="pa">
-        <rect class="seat" x="134" y="150" width="34" height="8" rx="4"/>
-        <line class="chain" x1="74" y1="92" x2="56" y2="124"/>
-        <line class="l" x1="150" y1="138" x2="118" y2="98"/><line class="l" x1="118" y1="98" x2="98" y2="146"/><line class="l" x1="98" y1="146" x2="110" y2="150"/>
-        <line class="t" x1="150" y1="136" x2="126" y2="76"/>
-        <circle class="hd" cx="118" cy="55" r="12"/>
-        <line class="a" x1="126" y1="78" x2="76" y2="92"/>
-        <circle cx="74" cy="92" r="4" fill="var(--ink)"/>
-        <path class="ar" d="M190 112 L170 112 M170 112 L177 106 M170 112 L177 118"/>
-      </g>
-      <g class="pb">
-        <rect class="seat" x="198" y="150" width="34" height="8" rx="4"/>
-        <line class="chain" x1="190" y1="104" x2="56" y2="124"/>
-        <line class="l" x1="215" y1="138" x2="152" y2="134"/><line class="l" x1="152" y1="134" x2="98" y2="146"/><line class="l" x1="98" y1="146" x2="110" y2="150"/>
-        <line class="t" x1="215" y1="136" x2="228" y2="80"/>
-        <circle class="hd" cx="234" cy="58" r="12"/>
-        <polyline class="a" points="228,82 244,102 192,104"/>
-        <circle cx="190" cy="104" r="4" fill="var(--ink)"/>
-        <ellipse class="dash" cx="226" cy="100" rx="13" ry="9"/>
-        <path class="ar" d="M120 118 L140 118 M140 118 L133 112 M140 118 L133 124"/>
-      </g>
-    </svg>
-  </div>
-  <div class="seg"><button data-p="a">Catch</button><button data-p="b">Finish</button></div>
-  <p class="cap"><span class="pa">Shins vertical, arms long, ribs stacked over hips.</span><span class="pb">Legs straight, lean back slightly, hands to lower ribs.</span></p>
+  <div class="fig" data-tap><img class="gif" src="gifs/rowing.gif" data-still="gifs/rowing.png" data-live="gifs/rowing.gif" alt="Person on a rowing machine moving from the catch to the finish and back" width="480" loading="eager"></div>
+  <p class="cap"><b>Catch:</b> shins vertical, arms long.<br><b>Finish:</b> legs straight, slight lean back.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
     <li><i>1</i><span>Drive: legs, then lean, then arms. Recover in reverse. Exhale on the drive.</span></li>
     <li><i>2</i><span>Easy pace: you can speak in full sentences. Keep the damper low.</span></li>
@@ -458,12 +337,11 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
   window.addEventListener('resize',function(){ track.scrollLeft=cur*track.clientWidth; });
 
   cards.forEach(function(c){
-    function set(p){ c.setAttribute('data-s',p); }
-    Array.prototype.forEach.call(c.querySelectorAll('.seg button'),function(b){
-      b.addEventListener('click',function(){ set(b.getAttribute('data-p')); });
-    });
-    var f=c.querySelector('[data-tap]');
-    if(f) f.addEventListener('click',function(){ set(c.getAttribute('data-s')==='a'?'b':'a'); });
+    var img=c.querySelector('.fig img'); if(!img) return;
+    var frozen=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function apply(){ img.src=frozen?img.getAttribute('data-still'):img.getAttribute('data-live'); }
+    apply();
+    c.querySelector('.fig').addEventListener('click',function(){ frozen=!frozen; apply(); });
   });
 
   /* Timers: index -> seconds, optional halfway message */
@@ -491,7 +369,7 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
     var c=cards[i], cfg=plan[i];
     var box=document.createElement('div'); box.className='timer';
     box.innerHTML='<div class="time">'+fmt(cfg.s)+'</div><button class="tgo" type="button">Start</button><button class="trs" type="button" aria-label="Reset timer">Reset</button><div class="tgauge"><i></i></div><div class="tmsg" role="status"></div>';
-    var seg=c.querySelector('.seg'); seg.parentNode.insertBefore(box,seg.nextSibling);
+    var anchor=c.querySelector('.fig'); anchor.parentNode.insertBefore(box,anchor.nextSibling);
     var time=box.querySelector('.time'),go=box.querySelector('.tgo'),rs=box.querySelector('.trs'),msg=box.querySelector('.tmsg'),gauge=box.querySelector('.tgauge i');
     var left=cfg.s,end=0,iv=null,midDone=false;
     function stop(){ if(iv){clearInterval(iv);iv=null;} box.classList.remove('run'); unlock(); }
