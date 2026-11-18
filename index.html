@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Core Reset">
@@ -63,10 +63,10 @@ nav{display:flex;align-items:center;justify-content:space-between;gap:10px;paddi
 nav button{font:700 13px/1 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--bg);background:var(--ink);border:3px solid var(--ink);padding:13px 14px;min-width:92px;cursor:pointer}
 nav button:disabled{opacity:.25;cursor:default}
 button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
-.dots{display:flex;gap:5px;align-items:center}
-.dots i{width:9px;height:9px;border:2px solid var(--ink);transition:width .2s,background .2s}
-.dots i.on{background:var(--org);width:20px}
-@media (prefers-reduced-motion: reduce){.dots i{transition:none}}
+
+
+
+
 
 /* Timer */
 .timer{display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:8px;border:3px solid var(--ink);background:var(--paper);padding:10px 12px}
@@ -125,65 +125,70 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 .mach{stroke:#8d8a84;stroke-width:5;fill:none;stroke-linecap:round}
 .seat{fill:#8d8a84}
 .chain{stroke:#8d8a84;stroke-width:2;fill:none}
+
+.hero svg{aspect-ratio:320/84}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{font:700 12px/1 var(--mono);text-transform:uppercase;letter-spacing:.05em;color:var(--ink);background:transparent;border:2.5px dashed var(--ink);padding:10px 12px;cursor:pointer}
+.chip.solid{border-style:solid;background:var(--ink);color:var(--bg)}
+.offer{border:3px solid var(--ink);background:var(--org);padding:12px;display:flex;flex-direction:column;gap:8px}
+.offer[hidden]{display:none}
+.offer b{font:700 16px/1.2 var(--display);text-transform:uppercase;letter-spacing:.02em}
+.offer.small{flex-direction:row;align-items:center;justify-content:space-between}
+.offer button{font:700 12px/1 var(--mono);text-transform:uppercase;background:var(--ink);color:var(--bg);border:3px solid var(--ink);padding:10px 14px;cursor:pointer}
+.offer .btnrow{display:flex;gap:8px}
+.offer .btnrow .no{background:transparent;color:var(--ink)}
+.trk{border:3px solid var(--ink);padding:11px 12px;display:flex;flex-direction:column;gap:8px}
+.trk h3{margin:0;display:flex;justify-content:space-between;align-items:baseline;gap:8px;font:700 16px/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.trk h3 span:last-child{font:700 11px var(--mono);letter-spacing:.06em}
+.trk .sub{font:400 12px/1.35 var(--mono);color:var(--muted)}
+.trk.locked{border-style:dashed}
+.mini{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:3px;border:2.5px solid var(--ink);padding:3px}
+.mini i{height:12px;outline:1.5px solid rgba(18,18,18,.35);outline-offset:-1.5px}
+.mini i.on{background:var(--org);outline:1.5px solid var(--ink)}
+.gauge11{grid-template-columns:repeat(var(--n,11),1fr)}
+.req{display:grid;grid-template-columns:22px 1fr;gap:8px;font-size:14px;align-items:center}
+.req i{border:2px solid var(--ink);width:20px;height:20px;display:grid;place-items:center;font:700 12px var(--mono);font-style:normal}
+.req.ok i{background:var(--org)}
+.req input{width:20px;height:20px;accent-color:var(--ink)}
+.navbar{flex:1;height:16px;border:3px solid var(--ink)}
+.navbar i{display:block;height:100%;width:0;background:var(--org)}
+.hbtn{font:700 13px/1 var(--mono);width:30px;height:30px;border:2.5px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
+.hdr-r{display:flex;align-items:center;gap:8px}
+.bigstat#pgTotal b{font-size:48px}
 </style>
 </head>
 <body>
-<header><h1>Core Reset</h1><span id="count">1 / 10</span></header>
-
+<header><h1>Core Reset</h1><div class="hdr-r"><span id="count">1 / 1</span><button class="hbtn" id="helpBtn" type="button" aria-label="How this works">?</button></div></header>
 <main class="track" id="track">
-
-<!-- Today -->
-<section class="card" data-s="a">
+<section class="card" data-id="today">
 <div class="inner">
   <div class="top"><div><h2 id="tdTitle">Today</h2><p class="tag" id="tdSub"></p></div></div>
   <div class="hero"><svg viewBox="0 0 320 84" role="img" aria-label="Hourglass grid"><polygon points="10,6 310,6 174,42.0 310,78 10,78 146,42.0" fill="none" stroke="#121212" stroke-width="3" stroke-linejoin="round"/><line x1="23.6" y1="9.6" x2="296.4" y2="9.6" stroke="#121212" stroke-width="1.4"/><line x1="23.6" y1="74.4" x2="296.4" y2="74.4" stroke="#121212" stroke-width="1.4"/><line x1="37.2" y1="13.2" x2="282.8" y2="13.2" stroke="#121212" stroke-width="1.4"/><line x1="37.2" y1="70.8" x2="282.8" y2="70.8" stroke="#121212" stroke-width="1.4"/><line x1="50.8" y1="16.8" x2="269.2" y2="16.8" stroke="#121212" stroke-width="1.4"/><line x1="50.8" y1="67.2" x2="269.2" y2="67.2" stroke="#121212" stroke-width="1.4"/><line x1="64.4" y1="20.4" x2="255.6" y2="20.4" stroke="#121212" stroke-width="1.4"/><line x1="64.4" y1="63.6" x2="255.6" y2="63.6" stroke="#121212" stroke-width="1.4"/><line x1="78.0" y1="24.0" x2="242.0" y2="24.0" stroke="#121212" stroke-width="1.4"/><line x1="78.0" y1="60.0" x2="242.0" y2="60.0" stroke="#121212" stroke-width="1.4"/><line x1="91.6" y1="27.6" x2="228.4" y2="27.6" stroke="#121212" stroke-width="1.4"/><line x1="91.6" y1="56.4" x2="228.4" y2="56.4" stroke="#121212" stroke-width="1.4"/><line x1="105.2" y1="31.2" x2="214.8" y2="31.2" stroke="#121212" stroke-width="1.4"/><line x1="105.2" y1="52.8" x2="214.8" y2="52.8" stroke="#121212" stroke-width="1.4"/><line x1="118.8" y1="34.8" x2="201.2" y2="34.8" stroke="#121212" stroke-width="1.4"/><line x1="118.8" y1="49.2" x2="201.2" y2="49.2" stroke="#121212" stroke-width="1.4"/><line x1="132.4" y1="38.4" x2="187.6" y2="38.4" stroke="#121212" stroke-width="1.4"/><line x1="132.4" y1="45.6" x2="187.6" y2="45.6" stroke="#121212" stroke-width="1.4"/><line x1="35.0" y1="6" x2="148.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="148.3" y1="42.0" x2="35.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="60.0" y1="6" x2="150.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="150.7" y1="42.0" x2="60.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="85.0" y1="6" x2="153.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="153.0" y1="42.0" x2="85.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="110.0" y1="6" x2="155.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="155.3" y1="42.0" x2="110.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="135.0" y1="6" x2="157.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="157.7" y1="42.0" x2="135.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="160.0" y1="6" x2="160.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="160.0" y1="42.0" x2="160.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="185.0" y1="6" x2="162.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="162.3" y1="42.0" x2="185.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="210.0" y1="6" x2="164.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="164.7" y1="42.0" x2="210.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="235.0" y1="6" x2="167.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="167.0" y1="42.0" x2="235.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="260.0" y1="6" x2="169.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="169.3" y1="42.0" x2="260.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="285.0" y1="6" x2="171.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="171.7" y1="42.0" x2="285.0" y2="78" stroke="#121212" stroke-width="1.4"/><circle cx="160" cy="42.0" r="5" fill="#f04a1f" stroke="#121212" stroke-width="2"/></svg><div class="kj" aria-label="Return">戻</div></div>
   <div class="week" id="week"></div>
+  <div class="offer small" id="tdOffer" hidden><b>A level-up is ready</b><button type="button">See it</button></div>
   <div class="tasks" id="tasks"></div>
+  <div class="chips" id="addrow" hidden></div>
   <div class="watch" id="tdNote"></div>
 </div>
 </section>
 
-<!-- Week in review -->
-<section class="card" data-s="a">
+<section class="card" data-id="guide">
 <div class="inner">
-  <div class="top"><div><h2>Your week</h2><p class="tag" id="wkSub"></p></div><span class="badge" id="wkBadge"></span></div>
-  <div class="bigstat"><b id="wkDone">0</b><span id="wkOf">of 11 planned sessions</span></div>
-  <div class="gauge11" id="wkBar" role="img" aria-label="Sessions done this week"></div>
-  <ul class="cues" id="wkList"></ul>
-  <div class="wkgrid" id="wkGrid"></div>
-  <div class="watch" id="wkNext"></div>
-</div>
-</section>
-
-<!-- 0 Intro -->
-<section class="card" data-s="a">
-<div class="inner">
-  <div class="top"><div><h2>10-minute core reset</h2><p class="tag">Rib flare, pelvic floor, deep core</p></div><span class="badge">5 moves</span></div>
-  <div class="fig">
-    <svg viewBox="0 0 320 120" role="img" aria-label="Five short cards, one for each move, in a row">
-      <g font-family="DM Sans, sans-serif" font-size="11" text-anchor="middle" fill="currentColor">
-        <g><rect x="8" y="22" width="52" height="64" rx="8" fill="none" stroke="var(--coral)" stroke-width="2.5"/><text x="34" y="60" fill="var(--ink)" font-weight="700" font-size="15">1</text><text x="34" y="106" fill="var(--muted)">Breathe</text></g>
-        <g><rect x="71" y="22" width="52" height="64" rx="8" fill="none" stroke="var(--teal)" stroke-width="2.5"/><text x="97" y="60" fill="var(--ink)" font-weight="700" font-size="15">2</text><text x="97" y="106" fill="var(--muted)">Slides</text></g>
-        <g><rect x="134" y="22" width="52" height="64" rx="8" fill="none" stroke="var(--teal)" stroke-width="2.5"/><text x="160" y="60" fill="var(--ink)" font-weight="700" font-size="15">3</text><text x="160" y="106" fill="var(--muted)">Bridge</text></g>
-        <g><rect x="197" y="22" width="52" height="64" rx="8" fill="none" stroke="var(--teal)" stroke-width="2.5"/><text x="223" y="60" fill="var(--ink)" font-weight="700" font-size="15">4</text><text x="223" y="106" fill="var(--muted)">Bird dog</text></g>
-        <g><rect x="260" y="22" width="52" height="64" rx="8" fill="none" stroke="var(--teal)" stroke-width="2.5"/><text x="286" y="60" fill="var(--ink)" font-weight="700" font-size="15">5</text><text x="286" y="106" fill="var(--muted)">Side plank</text></g>
-      </g>
-    </svg>
-  </div>
+  <div class="top"><div><h2>How this works</h2><p class="tag">Read once, then swipe on</p></div></div>
   <ul class="cues">
-    <li><i>→</i><span>Swipe or use the buttons to flip through.</span></li>
-    <li><i>↔</i><span>Pictures loop on their own. Tap one to freeze it. Orange marks where to feel the move.</span></li>
+    <li><i>→</i><span>Swipe through today's routine. It ends on Your track, then loops back to Today.</span></li>
+    <li><i>○</i><span>Pictures loop on their own. Tap one to freeze it. Orange marks where to feel the move.</span></li>
     <li><i>●</i><span><b>Pelvic floor lift:</b> a gentle lift at about 30% effort, as if stopping a stream of urine. Fully release on the way back.</span></li>
-    <li><i>○</i><span><b>Pace:</b> exhale on every effort. About 2 minutes per move.</span></li>
+    <li><i>↑</i><span>Levels go up after 2 solid weeks in a row. You always choose when.</span></li>
   </ul>
   <div class="watch"><b>Stop</b> if you notice leaking, pelvic heaviness, or a ridge or doming down the middle of your belly.</div>
+  <div class="tasks"><button type="button" class="chip solid" id="guideClose">Close guide</button></div>
 </div>
 </section>
 
-<!-- 1 Ribcage breathing -->
-<section class="card" data-s="a">
+<section class="card" data-id="c-breath">
 <div class="inner">
-  <div class="top"><div><h2>1. Ribcage breathing</h2><p class="tag">Fixes rib flare</p></div><span class="badge">2 min</span></div>
+  <div class="top"><div><h2>1. Ribcage breathing</h2><p class="tag">Fixes rib flare</p></div><span class="badge tbadge">2 min</span></div>
   <div class="fig" data-tap><img class="gif" src="gifs/breathing.gif" data-still="gifs/breathing.png" data-live="gifs/breathing.gif" alt="Person lying on their back breathing, ribs widening on the inhale and closing down on the exhale" width="480" loading="eager"></div>
   <p class="cap"><b>Inhale:</b> ribs widen into your hands.<br><b>Exhale:</b> ribs glide down and in.</p>
   <p class="hint">Tap the picture to freeze it.</p>
@@ -197,9 +202,10 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 </section>
 
 <!-- 2 Heel slides -->
-<section class="card" data-s="a">
+
+<section class="card" data-id="c-slides">
 <div class="inner">
-  <div class="top"><div><h2>2. Heel slides</h2><p class="tag">Deep core, pelvic floor</p></div><span class="badge">2 min</span></div>
+  <div class="top"><div><h2>2. Heel slides</h2><p class="tag">Deep core, pelvic floor</p></div><span class="badge tbadge">2 min</span></div>
   <div class="fig" data-tap><img class="gif" src="gifs/slides.gif" data-still="gifs/slides.png" data-live="gifs/slides.gif" alt="Person lying on their back sliding one heel out along the floor and back" width="480" loading="eager"></div>
   <p class="cap"><b>Start:</b> both knees bent, ribs down.<br><b>Slide:</b> exhale and slide one heel out.</p>
   <p class="hint">Tap the picture to freeze it.</p>
@@ -213,9 +219,10 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 </section>
 
 <!-- 3 Glute bridge -->
-<section class="card" data-s="a">
+
+<section class="card" data-id="c-bridge">
 <div class="inner">
-  <div class="top"><div><h2>3. Glute bridge</h2><p class="tag">Pelvic floor, glutes</p></div><span class="badge">2 min</span></div>
+  <div class="top"><div><h2>3. Glute bridge</h2><p class="tag">Pelvic floor, glutes</p></div><span class="badge tbadge">2 min</span></div>
   <div class="fig" data-tap><img class="gif" src="gifs/bridge.gif" data-still="gifs/bridge.png" data-live="gifs/bridge.gif" alt="Person lying on their back lifting hips into a bridge and lowering" width="480" loading="eager"></div>
   <p class="cap"><b>Start:</b> feet flat, arms at your sides.<br><b>Lift:</b> shoulders, hips, knees in a line.</p>
   <p class="hint">Tap the picture to freeze it.</p>
@@ -229,9 +236,10 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 </section>
 
 <!-- 4 Bird dog -->
-<section class="card" data-s="a">
+
+<section class="card" data-id="c-birddog">
 <div class="inner">
-  <div class="top"><div><h2>4. Bird dog</h2><p class="tag">Deep core, back</p></div><span class="badge">2 min</span></div>
+  <div class="top"><div><h2>4. Bird dog</h2><p class="tag">Deep core, back</p></div><span class="badge tbadge">2 min</span></div>
   <div class="fig" data-tap><img class="gif" src="gifs/birddog.gif" data-still="gifs/birddog.png" data-live="gifs/birddog.gif" alt="Person on hands and knees reaching one arm forward and the opposite leg back" width="480" loading="eager"></div>
   <p class="cap"><b>Start:</b> hands under shoulders, knees under hips.<br><b>Reach:</b> opposite arm and leg, hips level.</p>
   <p class="hint">Tap the picture to freeze it.</p>
@@ -245,9 +253,10 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 </section>
 
 <!-- 5 Side plank from knees -->
-<section class="card" data-s="a">
+
+<section class="card" data-id="c-plank">
 <div class="inner">
-  <div class="top"><div><h2>5. Side plank from knees</h2><p class="tag">Side core, ribs over hips</p></div><span class="badge">2 min</span></div>
+  <div class="top"><div><h2>5. Side plank from knees</h2><p class="tag">Side core, ribs over hips</p></div><span class="badge tbadge">2 min</span></div>
   <div class="fig" data-tap><img class="gif" src="gifs/sideplank.gif" data-still="gifs/sideplank.png" data-live="gifs/sideplank.gif" alt="Person on their side lifting hips from a bent-knee side plank" width="480" loading="eager"></div>
   <p class="cap"><b>Start:</b> elbow under shoulder, knees bent.<br><b>Lift:</b> shoulder, hip, knee in a line.</p>
   <p class="hint">Tap the picture to freeze it.</p>
@@ -261,9 +270,10 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 </section>
 
 <!-- 6 Rowing -->
-<section class="card" data-s="a">
+
+<section class="card" data-id="rowing">
 <div class="inner">
-  <div class="top"><div><h2>Rowing, easy</h2><p class="tag">After the core routine</p></div><span class="badge">10 min</span></div>
+  <div class="top"><div><h2>Rowing, easy</h2><p class="tag">After the core routine</p></div><span class="badge tbadge">10 min</span></div>
   <div class="fig" data-tap><img class="gif" src="gifs/rowing.gif" data-still="gifs/rowing.png" data-live="gifs/rowing.gif" alt="Person on a rowing machine moving from the catch to the finish and back" width="480" loading="eager"></div>
   <p class="cap"><b>Catch:</b> shins vertical, arms long.<br><b>Finish:</b> legs straight, slight lean back.</p>
   <p class="hint">Tap the picture to freeze it.</p>
@@ -277,236 +287,506 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 </section>
 
 <!-- 7 Ramp-up -->
-<section class="card" data-s="a">
+
+<section class="card" data-id="y-catcow">
 <div class="inner">
-  <div class="top"><div><h2>Ramp-up plan</h2><p class="tag">Build slowly, change one thing at a time</p></div></div>
-  <div>
-    <div class="row"><b>Weeks 1–2</b><span>Core routine 2–3 days. Rowing 2 days.</span></div>
-    <div class="row"><b>Weeks 3–4</b><span>Core routine most weekdays. Rowing 2–3 days.</span></div>
-    <div class="row"><b>Week 5+</b><span>Add rowing time or effort, never both at once.</span></div>
-  </div>
+  <div class="top"><div><h2>Cat-cow</h2><p class="tag">Spine, hips, shoulders</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/catcow.gif" data-still="gifs/catcow.png" data-live="gifs/catcow.gif" alt="Person on hands and knees arching and rounding their back" width="480" loading="eager"></div>
+  <p class="cap"><b>Cow:</b> belly softens, chest and tailbone lift.<br><b>Cat:</b> round your back, chin toward chest, ribs draw in.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
   <ul class="cues">
-    <li><i>1</i><span>Nurse or pump first, so you are comfortable. Wear a supportive bra.</span></li>
-    <li><i>2</i><span>Drink water and have a snack before rowing.</span></li>
-    <li><i>3</i><span>A pelvic floor physical therapist can check your pelvic floor and ab separation before you push harder.</span></li>
+    <li><i>1</i><span>Inhale into cow, exhale into cat. Move slowly.</span></li>
+    <li><i>2</i><span>Hands under shoulders, knees under hips.</span></li>
+    <li><i>3</i><span>Add a gentle pelvic floor lift as you round.</span></li>
   </ul>
-  <div class="watch"><b>Back off a step</b> if you see leaking, heaviness, doming, or pain.</div>
+  <div class="watch"><b>Watch for</b> wrists or knees hurting. Pad them and use a smaller range. Keep ribs soft in cow.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-child">
+<div class="inner">
+  <div class="top"><div><h2>Child's pose</h2><p class="tag">Low back, hips, shoulders</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/child.gif" data-still="gifs/child.png" data-live="gifs/child.gif" alt="Person folding from hands and knees into child pose" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> on hands and knees.<br><b>Fold:</b> hips back toward heels, forehead down, arms long.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Breathe into your back ribs.</span></li>
+    <li><i>2</i><span>Knees wide if your belly or chest need room.</span></li>
+    <li><i>3</i><span>Soften your jaw and shoulders.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> knee or hip pressure. Put a pillow between hips and heels.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-lunge">
+<div class="inner">
+  <div class="top"><div><h2>Low lunge</h2><p class="tag">Hip flexors, front of hips</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/lunge.gif" data-still="gifs/lunge.png" data-live="gifs/lunge.gif" alt="Person in a low kneeling lunge sinking their hips forward" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> back knee down, hands on front thigh.<br><b>Sink:</b> hips glide forward, ribs stay stacked over hips.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Pad the back knee. Tuck your tailbone slightly.</span></li>
+    <li><i>2</i><span>Feel the stretch at the front of the back hip.</span></li>
+    <li><i>3</i><span>Switch sides at the halfway beep.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> arching your low back. Front knee stays over the ankle.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-kneehug">
+<div class="inner">
+  <div class="top"><div><h2>Knees to chest</h2><p class="tag">Low back, hips</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/kneehug.gif" data-still="gifs/kneehug.png" data-live="gifs/kneehug.gif" alt="Person lying on their back hugging both knees toward their chest" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> feet flat, knees bent.<br><b>Hug:</b> draw both knees toward your chest, tailbone heavy.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Keep your head and shoulders down on the mat.</span></li>
+    <li><i>2</i><span>Breathe slowly into your low back.</span></li>
+    <li><i>3</i><span>Small circles with your knees are fine.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> neck tension. Keep your head down and chin level.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-ragdoll">
+<div class="inner">
+  <div class="top"><div><h2>Rag doll fold</h2><p class="tag">Back, hamstrings, neck</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/ragdoll.gif" data-still="gifs/ragdoll.png" data-live="gifs/ragdoll.gif" alt="Person standing and folding forward with soft knees, arms hanging" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> hinge from the hips, hands on shins, knees soft.<br><b>Fold:</b> let your head and arms hang heavy.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Bend your knees as much as you like.</span></li>
+    <li><i>2</i><span>Sway gently side to side. Let your neck go.</span></li>
+    <li><i>3</i><span>Roll up slowly, head last.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> dizziness. Come up slowly and pause.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-puppy">
+<div class="inner">
+  <div class="top"><div><h2>Melting heart</h2><p class="tag">Shoulders, upper back</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/puppy.gif" data-still="gifs/puppy.png" data-live="gifs/puppy.gif" alt="Person in puppy pose with hips high and chest low, arms forward" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> hands and knees, hips over knees.<br><b>Melt:</b> walk hands forward, chest melts toward the floor.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Keep your hips high over your knees.</span></li>
+    <li><i>2</i><span>Forehead or chin to the mat.</span></li>
+    <li><i>3</i><span>Breathe into your upper back and shoulders.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> low back arching or ribs flaring. Keep ribs drawn down and stop sinking the chest.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-neck">
+<div class="inner">
+  <div class="top"><div><h2>Seated neck release</h2><p class="tag">Neck, upper shoulders</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/neck.gif" data-still="gifs/neck.png" data-live="gifs/neck.gif" alt="Person seated cross-legged tilting their head toward one shoulder" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> sit tall, arm resting down.<br><b>Tilt:</b> ear toward shoulder, hand rests on head, other hand reaches down.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Let the weight of your hand do the work. Do not pull.</span></li>
+    <li><i>2</i><span>Breathe slowly and soften your jaw.</span></li>
+    <li><i>3</i><span>Switch sides at the halfway beep.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> sharp pain or tingling down an arm. Stop.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-sidebend">
+<div class="inner">
+  <div class="top"><div><h2>Seated side bend</h2><p class="tag">Side body, shoulders, ribs</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/sidebend.gif" data-still="gifs/sidebend.png" data-live="gifs/sidebend.gif" alt="Person seated cross-legged bending sideways with one arm overhead" width="480" loading="eager"></div>
+  <p class="cap"><b>Start:</b> sit tall on both sit bones.<br><b>Bend:</b> reach one arm overhead and lean to the side.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Lengthen up first, then bend.</span></li>
+    <li><i>2</i><span>Ribs stay stacked. Do not flare them.</span></li>
+    <li><i>3</i><span>Switch sides at the halfway beep.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> leaning forward or back. Stay in one flat plane.</div>
+</div>
+</section>
+
+<section class="card" data-id="y-breath">
+<div class="inner">
+  <div class="top"><div><h2>Resting breath</h2><p class="tag">Rib flare, pelvic floor, calm</p></div><span class="badge tbadge">1 min</span></div>
+  <div class="fig" data-tap><img class="gif" src="gifs/breathing.gif" data-still="gifs/breathing.png" data-live="gifs/breathing.gif" alt="Person lying on their back breathing, ribs widening and closing" width="480" loading="eager"></div>
+  <p class="cap"><b>Inhale:</b> ribs widen into your hands.<br><b>Exhale:</b> ribs glide down and in.</p>
+  <p class="hint">Tap the picture to freeze it.</p>
+  <ul class="cues">
+    <li><i>1</i><span>Hands on lower ribs, knees bent, feet flat.</span></li>
+    <li><i>2</i><span>Make the exhale long and slow.</span></li>
+    <li><i>3</i><span>Relax your jaw, shoulders and pelvic floor on the inhale.</span></li>
+  </ul>
+  <div class="watch"><b>Watch for</b> ribs poking up toward the ceiling as you inhale.</div>
+</div>
+</section>
+
+<section class="card" data-id="week">
+<div class="inner">
+  <div class="top"><div><h2>Your week</h2><p class="tag" id="wkSub"></p></div><span class="badge" id="wkBadge"></span></div>
+  <div class="bigstat"><b id="wkDone">0</b><span id="wkOf">of 14 planned sessions</span></div>
+  <div class="gauge11" id="wkBar" role="img" aria-label="Sessions done this week"></div>
+  <ul class="cues" id="wkList"></ul>
+  <div class="wkgrid" id="wkGrid"></div>
+  <div class="watch" id="wkNext"></div>
+</div>
+</section>
+
+<section class="card" data-id="progress">
+<div class="inner">
+  <div class="top"><div><h2>Your track</h2><p class="tag">Levels, unlocks, what is next</p></div></div>
+  <div id="pgOffers" class="tasks"></div>
+  <div class="tasks" id="pgTracks"></div>
+  <div class="trk"><h3><span>Daily time</span><span>Build to 60</span></h3><div class="bigstat" id="pgTotal"></div><div class="gauge11 g12" id="pgTotBar"></div></div>
+  <div class="tasks" id="pgLocked"></div>
+  <div class="watch"><b>Next</b> Swipe once more to return to Today.</div>
 </div>
 </section>
 
 </main>
-
 <nav>
-  <button id="prev" aria-label="Previous card">← Back</button>
-  <div class="dots" id="dots" aria-hidden="true"></div>
-  <button id="next" aria-label="Next card">Next →</button>
+  <button id="prev" type="button" aria-label="Previous card">← Back</button>
+  <div class="navbar" aria-hidden="true"><i id="navfill"></i></div>
+  <button id="next" type="button" aria-label="Next card">Next →</button>
 </nav>
-
+<div id="store" hidden></div>
 <script>
 (function(){
-  var track=document.getElementById('track');
-  var cards=Array.prototype.slice.call(track.querySelectorAll('.card'));
-  var dots=document.getElementById('dots');
-  var count=document.getElementById('count');
-  var prev=document.getElementById('prev');
-  var next=document.getElementById('next');
-  var cur=0;
+var track=document.getElementById('track');
+var count=document.getElementById('count');
+var prevB=document.getElementById('prev'), nextB=document.getElementById('next');
+var fill=document.getElementById('navfill');
+var CARDS={};
+Array.prototype.forEach.call(track.querySelectorAll('.card'),function(c){ CARDS[c.getAttribute('data-id')]=c; });
+var store=document.getElementById('store');
+Array.prototype.forEach.call(track.querySelectorAll('.card'),function(c){ store.appendChild(c); });
+var deck=[], cloneEl=null, cur=0, guideOpen=false;
+var REDUCED=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  cards.forEach(function(){ dots.appendChild(document.createElement('i')); });
-  count.textContent='1 / '+cards.length;
+/* ---------- storage and dates ---------- */
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
+function ds(d){ return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
+function noon(d){ var x=new Date(d); x.setHours(12,0,0,0); return x; }
+function addDays(d,n){ var x=noon(d); x.setDate(x.getDate()+n); return x; }
+function monday(d){ var x=noon(d); x.setDate(x.getDate()-((x.getDay()+6)%7)); return x; }
+function done(d,k){ return lsGet('crg-'+ds(d)+'-'+k)==='1'; }
+function setDone(d,k,v){ lsSet('crg-'+ds(d)+'-'+k,v?'1':'0'); }
+function walkMin(d){ return parseInt(lsGet('crg-'+ds(d)+'-walkmin')||'0',10); }
+function fmt(n){ var m=Math.floor(n/60),r=n%60; return m+':'+(r<10?'0':'')+r; }
+function fmtMin(s){ var m=s/60; return (Math.round(m*10)/10)+' min'; }
+if(!lsGet('crg-start')) lsSet('crg-start',String(Date.now()));
+var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var LONG=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 
-  function idx(){ return Math.max(0,Math.min(cards.length-1,Math.round(track.scrollLeft/track.clientWidth))); }
-  function sync(){
-    cur=idx();
-    Array.prototype.forEach.call(dots.children,function(d,i){ d.className=i===cur?'on':''; });
-    count.textContent=(cur+1)+' / '+cards.length;
-    prev.disabled=cur===0;
-    next.disabled=cur===cards.length-1;
+/* ---------- plan, levels ---------- */
+var LV={core:[120,150,180],row:[600,900,1200,1500],walk:[20,30,40,45]};   /* seconds per core move, rowing seconds, walk minutes */
+var PLAN={core:5,row:3,walk:3,yoga:3};
+var NEED={core:4,row:2,walk:2};
+var NAMES={core:'Core reset',row:'Rowing',walk:'Walking',yoga:'Yoga'};
+var SCHED={
+  0:{t:['review','yoga'],note:'Rest day. Look back at your week. Yoga is optional.'},
+  1:{t:['core','row','yoga'],note:'Core, then rowing. Yoga whenever it fits.'},
+  2:{t:['core','walk','yoga'],note:'Strength joins Tuesday and Thursday once it unlocks.'},
+  3:{t:['core','row','yoga'],note:'Core, then rowing. Yoga whenever it fits.'},
+  4:{t:['core','walk','yoga'],note:'Strength joins Tuesday and Thursday once it unlocks.'},
+  5:{t:['core','row','yoga'],note:'In the first 2 weeks you can skip rowing today and build up to it.'},
+  6:{t:['walk','yoga'],note:'Walk day. Add the core routine if you feel like it.'}
+};
+var CORE_IDS=['c-breath','c-slides','c-bridge','c-birddog','c-plank'];
+var CORE_MID={'c-slides':'Switch legs','c-birddog':'Switch sides','c-plank':'Switch sides'};
+var YS=[
+ {name:'Hips & low back',cards:[['catcow',90],['child',90],['lunge',90,'Switch sides'],['kneehug',90],['ragdoll',60],['breath',180]]},
+ {name:'Shoulders & neck',cards:[['neck',90,'Switch sides'],['sidebend',90,'Switch sides'],['puppy',120],['catcow',60],['child',60],['ragdoll',60],['breath',120]]},
+ {name:'Full-body reset',cards:[['catcow',60],['lunge',90,'Switch sides'],['puppy',90],['kneehug',60],['neck',60,'Switch sides'],['sidebend',60,'Switch sides'],['ragdoll',60],['breath',120]]}
+];
+function getLv(t){ try{ var v=JSON.parse(lsGet('crg-lv-'+t)); if(v&&v.n) return v; }catch(e){}
+  return {n:1,since:monday(new Date(parseInt(lsGet('crg-start'),10))).getTime()}; }
+function setLv(t,v){ lsSet('crg-lv-'+t,JSON.stringify(v)); }
+function weekCount(t,mon){ var c=0; for(var i=0;i<7;i++){ if(done(addDays(mon,i),t)) c++; } return c; }
+function solid(t){ var lv=getLv(t),n=0,cm=monday(new Date());
+  for(var k=1;k<=2;k++){ var m=addDays(cm,-7*k); if(m.getTime()<lv.since) break; if(weekCount(t,m)>=NEED[t]) n++; else break; }
+  return n; }
+function eligible(t){ return solid(t)>=2 && getLv(t).n<LV[t].length; }
+function coreSecs(){ return LV.core[getLv('core').n-1]; }
+function rowSecs(){ return LV.row[getLv('row').n-1]; }
+function walkTarget(){ return LV.walk[getLv('walk').n-1]; }
+function yogaSession(now){
+  var k='crg-'+ds(now)+'-ysess', v=lsGet(k);
+  if(v===null||v===''){ v=String((parseInt(lsGet('crg-yoga-n')||'0',10))%YS.length); lsSet(k,v); }
+  return YS[parseInt(v,10)];
+}
+function tasksFor(now){
+  var base=SCHED[now.getDay()].t.slice();
+  ['core','row','yoga'].forEach(function(k){ if(base.indexOf(k)<0 && lsGet('crg-'+ds(now)+'-add-'+k)==='1') base.push(k); });
+  var order=['review','core','row','walk','yoga'];
+  return base.sort(function(a,b){ return order.indexOf(a)-order.indexOf(b); });
+}
+function minutesFor(t,now){
+  if(t==='core') return coreSecs()*5/60;
+  if(t==='row') return rowSecs()/60;
+  if(t==='walk') return walkTarget();
+  if(t==='yoga') return 10;
+  return 0;
+}
+
+/* ---------- timers ---------- */
+var actx=null,wl=null;
+function beep(n){
+  try{ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); if(actx.state==='suspended') actx.resume();
+    for(var k=0;k<n;k++){ var o=actx.createOscillator(),g=actx.createGain(); o.frequency.value=880; o.connect(g); g.connect(actx.destination);
+      var t=actx.currentTime+k*0.28; g.gain.setValueAtTime(0.0001,t); g.gain.exponentialRampToValueAtTime(0.25,t+0.02); g.gain.exponentialRampToValueAtTime(0.0001,t+0.2); o.start(t); o.stop(t+0.22); } }catch(e){}
+  try{ if(navigator.vibrate) navigator.vibrate(n>1?[200,100,200]:150); }catch(e){}
+}
+function lock(){ try{ if(navigator.wakeLock) navigator.wakeLock.request('screen').then(function(x){wl=x;}).catch(function(){}); }catch(e){} }
+function unlock(){ try{ if(wl){ wl.release(); wl=null; } }catch(e){} }
+function makeTimer(card){
+  var fig=card.querySelector('.fig'); if(!fig||card._t) return;
+  var box=document.createElement('div'); box.className='timer';
+  box.innerHTML='<div class="time">2:00</div><button class="tgo" type="button">Start</button><button class="trs" type="button" aria-label="Reset timer">Reset</button><div class="tgauge"><i></i></div><div class="tmsg" role="status"></div>';
+  fig.parentNode.insertBefore(box,fig.nextSibling);
+  var time=box.querySelector('.time'),go=box.querySelector('.tgo'),rs=box.querySelector('.trs'),msg=box.querySelector('.tmsg'),gauge=box.querySelector('.tgauge i');
+  var badge=card.querySelector('.tbadge');
+  var T={secs:120,mid:null,left:120,end:0,iv:null,midDone:false};
+  function stop(){ if(T.iv){ clearInterval(T.iv); T.iv=null; } box.classList.remove('run'); unlock(); }
+  function tick(){
+    T.left=Math.max(0,Math.ceil((T.end-Date.now())/1000)); time.textContent=fmt(T.left);
+    gauge.style.width=((T.secs-T.left)/T.secs*100)+'%';
+    if(T.mid && !T.midDone && T.left<=T.secs/2){ T.midDone=true; msg.textContent=T.mid; beep(2); }
+    if(T.left<=0){ stop(); gauge.style.width='100%'; msg.textContent='Done'; go.textContent='Again'; T.left=T.secs; T.midDone=false; beep(3); onTimerDone(card); }
   }
-  function go(i){
-    i=Math.max(0,Math.min(cards.length-1,i));
-    track.scrollTo({left:i*track.clientWidth,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'});
-  }
-  track.addEventListener('scroll',function(){ window.requestAnimationFrame(sync); });
-  prev.addEventListener('click',function(){ go(cur-1); });
-  next.addEventListener('click',function(){ go(cur+1); });
-  document.addEventListener('keydown',function(e){
-    if(e.key==='ArrowRight') go(cur+1);
-    if(e.key==='ArrowLeft') go(cur-1);
+  T.set=function(secs,mid){ stop(); T.secs=secs; T.mid=mid||null; T.left=secs; T.midDone=false; time.textContent=fmt(secs); gauge.style.width='0'; msg.textContent=''; go.textContent='Start'; if(badge) badge.textContent=fmtMin(secs); };
+  go.addEventListener('click',function(){
+    if(T.iv){ stop(); go.textContent='Resume'; return; }
+    if(go.textContent==='Again'){ time.textContent=fmt(T.secs); msg.textContent=''; gauge.style.width='0'; }
+    beep(0); lock(); T.end=Date.now()+T.left*1000; box.classList.add('run'); go.textContent='Pause'; T.iv=setInterval(tick,250);
   });
-  window.addEventListener('resize',function(){ track.scrollLeft=cur*track.clientWidth; });
-
-  cards.forEach(function(c){
-    var img=c.querySelector('.fig img'); if(!img) return;
-    var frozen=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function apply(){ img.src=frozen?img.getAttribute('data-still'):img.getAttribute('data-live'); }
-    apply();
-    c.querySelector('.fig').addEventListener('click',function(){ frozen=!frozen; apply(); });
-  });
-
-  /* Timers: index -> seconds, optional halfway message */
-  var plan={3:{s:120},4:{s:120,mid:'Switch legs'},5:{s:120},6:{s:120,mid:'Switch sides'},7:{s:120,mid:'Switch sides'},8:{s:600,mid:'Halfway'}};
-  var actx=null;
-  function beep(n){
-    try{
-      if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)();
-      if(actx.state==='suspended') actx.resume();
-      for(var k=0;k<n;k++){
-        var o=actx.createOscillator(),g=actx.createGain();
-        o.frequency.value=880;o.connect(g);g.connect(actx.destination);
-        var t=actx.currentTime+k*0.28;
-        g.gain.setValueAtTime(0.0001,t);g.gain.exponentialRampToValueAtTime(0.25,t+0.02);g.gain.exponentialRampToValueAtTime(0.0001,t+0.2);
-        o.start(t);o.stop(t+0.22);
-      }
-    }catch(e){}
-    try{ if(navigator.vibrate) navigator.vibrate(n>1?[200,100,200]:150); }catch(e){}
+  rs.addEventListener('click',function(){ T.set(T.secs,T.mid); });
+  card._t=T;
+}
+function onTimerDone(card){
+  var id=card.getAttribute('data-id'), now=new Date();
+  lsSet('crg-'+ds(now)+'-t-'+id,'1');
+  function all(ids){ return ids.every(function(i){ return lsGet('crg-'+ds(now)+'-t-'+i)==='1'; }); }
+  if(id==='rowing') setDone(now,'row',true);
+  if(CORE_IDS.indexOf(id)>=0 && all(CORE_IDS)) setDone(now,'core',true);
+  if(id.indexOf('y-')===0){
+    var ids=yogaSession(now).cards.map(function(c){return 'y-'+c[0];});
+    if(all(ids)) markYoga(now,true);
   }
-  var wl=null;
-  function lock(){ try{ if(navigator.wakeLock) navigator.wakeLock.request('screen').then(function(x){wl=x;}).catch(function(){}); }catch(e){} }
-  function unlock(){ try{ if(wl){wl.release();wl=null;} }catch(e){} }
-  function fmt(n){ var m=Math.floor(n/60),r=n%60; return m+':'+(r<10?'0':'')+r; }
-  Object.keys(plan).forEach(function(i){
-    var c=cards[i], cfg=plan[i];
-    var box=document.createElement('div'); box.className='timer';
-    box.innerHTML='<div class="time">'+fmt(cfg.s)+'</div><button class="tgo" type="button">Start</button><button class="trs" type="button" aria-label="Reset timer">Reset</button><div class="tgauge"><i></i></div><div class="tmsg" role="status"></div>';
-    var anchor=c.querySelector('.fig'); anchor.parentNode.insertBefore(box,anchor.nextSibling);
-    var time=box.querySelector('.time'),go=box.querySelector('.tgo'),rs=box.querySelector('.trs'),msg=box.querySelector('.tmsg'),gauge=box.querySelector('.tgauge i');
-    var left=cfg.s,end=0,iv=null,midDone=false;
-    function stop(){ if(iv){clearInterval(iv);iv=null;} box.classList.remove('run'); unlock(); }
-    function tick(){
-      left=Math.max(0,Math.ceil((end-Date.now())/1000));
-      time.textContent=fmt(left); gauge.style.width=((cfg.s-left)/cfg.s*100)+'%';
-      if(cfg.mid && !midDone && left<=cfg.s/2){ midDone=true; msg.textContent=cfg.mid; beep(2); }
-      if(left<=0){ stop(); gauge.style.width='100%'; msg.textContent='Done'; go.textContent='Again'; left=cfg.s; midDone=false; beep(3); if(window.crgTimerDone) window.crgTimerDone(+i); }
+  refresh(false);
+}
+function markYoga(now,v){
+  var flag='crg-'+ds(now)+'-yogacounted';
+  setDone(now,'yoga',v);
+  if(v && lsGet(flag)!=='1'){ lsSet(flag,'1'); lsSet('crg-yoga-n',String(parseInt(lsGet('crg-yoga-n')||'0',10)+1)); }
+}
+
+/* ---------- deck ---------- */
+function buildDeck(){
+  var now=new Date(), tasks=tasksFor(now), ids=['today'];
+  if(guideOpen) ids.push('guide');
+  tasks.forEach(function(t){
+    if(t==='core') CORE_IDS.forEach(function(i){ ids.push(i); });
+    if(t==='row') ids.push('rowing');
+    if(t==='yoga') yogaSession(now).cards.forEach(function(c){ ids.push('y-'+c[0]); });
+  });
+  if(now.getDay()===0) ids.push('week');
+  ids.push('progress');
+  deck=ids;
+  Array.prototype.slice.call(track.children).forEach(function(c){ if(c.getAttribute('data-clone')) track.removeChild(c); else store.appendChild(c); });
+  ids.forEach(function(i){ track.appendChild(CARDS[i]); });
+  /* durations */
+  CORE_IDS.forEach(function(i){ if(CARDS[i]._t) CARDS[i]._t.set(coreSecs(),CORE_MID[i]); });
+  if(CARDS['rowing']._t) CARDS['rowing']._t.set(rowSecs(),'Halfway');
+  yogaSession(now).cards.forEach(function(c){ var el=CARDS['y-'+c[0]]; if(el&&el._t) el._t.set(c[1],c[2]); });
+  syncClone();
+}
+function syncClone(){
+  if(cloneEl&&cloneEl.parentNode) cloneEl.parentNode.removeChild(cloneEl);
+  cloneEl=CARDS['today'].cloneNode(true); cloneEl.setAttribute('data-clone','1');
+  Array.prototype.forEach.call(cloneEl.querySelectorAll('[id]'),function(e){ e.removeAttribute('id'); });
+  Array.prototype.forEach.call(cloneEl.querySelectorAll('input,button'),function(e){ e.disabled=true; });
+  track.appendChild(cloneEl);
+}
+function W(){ return track.clientWidth; }
+function idx(){ return Math.round(track.scrollLeft/W()); }
+function jump(i){ track.style.scrollSnapType='none'; track.scrollLeft=i*W(); window.requestAnimationFrame(function(){ track.style.scrollSnapType=''; }); }
+function go(i){
+  if(i<0){ jump(deck.length-1); return; }
+  track.scrollTo({left:i*W(),behavior:REDUCED?'auto':'smooth'});
+}
+function goId(id){ var i=deck.indexOf(id); if(i>=0) go(i); }
+var settle=null;
+function sync(){
+  var i=idx();
+  if(i>=deck.length){ clearTimeout(settle); settle=setTimeout(function(){ if(idx()>=deck.length) jump(0); sync(); },120); return; }
+  cur=i; var n=deck.length;
+  count.textContent=(cur+1)+' / '+n;
+  fill.style.width=((cur+1)/n*100)+'%';
+  var next=document.getElementById('nextLbl'); 
+  nextB.textContent=(cur===n-1)?'Today →':'Next →';
+}
+track.addEventListener('scroll',function(){ window.requestAnimationFrame(sync); });
+prevB.addEventListener('click',function(){ go(cur-1); });
+nextB.addEventListener('click',function(){ go(cur+1); });
+document.addEventListener('keydown',function(e){ if(e.key==='ArrowRight') go(cur+1); if(e.key==='ArrowLeft') go(cur-1); });
+window.addEventListener('resize',function(){ jump(cur); });
+
+/* ---------- pictures: tap to freeze ---------- */
+Object.keys(CARDS).forEach(function(id){
+  var c=CARDS[id], img=c.querySelector('.fig img'); if(!img) return;
+  var frozen=REDUCED;
+  function apply(){ img.src=frozen?img.getAttribute('data-still'):img.getAttribute('data-live'); }
+  apply(); c.querySelector('.fig').addEventListener('click',function(){ frozen=!frozen; apply(); });
+  makeTimer(c);
+});
+
+/* ---------- Today ---------- */
+var walkTick=null;
+function walkStart(){ lsSet('crg-walk-active',String(Date.now())); refresh(false); }
+function walkStop(){
+  var t=parseInt(lsGet('crg-walk-active')||'0',10); if(!t) return;
+  var mins=Math.max(1,Math.round((Date.now()-t)/60000)), now=new Date();
+  lsSet('crg-'+ds(now)+'-walkmin',String(walkMin(now)+mins)); lsSet('crg-walk-active',''); setDone(now,'walk',true); refresh(false);
+}
+function yogaThisWeek(){ return weekCount('yoga',monday(new Date())); }
+function renderToday(){
+  var now=new Date(), dow=now.getDay(), tasks=tasksFor(now);
+  document.getElementById('tdTitle').textContent=LONG[dow];
+  var mins=0; tasks.forEach(function(t){ mins+=minutesFor(t,now); });
+  document.getElementById('tdSub').textContent="Today's routine, about "+Math.round(mins)+" min";
+  document.getElementById('tdNote').textContent=SCHED[dow].note;
+  var wk=document.getElementById('week'); wk.innerHTML='';
+  [1,2,3,4,5,6,0].forEach(function(d){
+    var el=document.createElement('div'); el.className='day'+(d===dow?' today':'');
+    var tag=SCHED[d].t.map(function(x){return {core:'C',row:'R',walk:'W',yoga:'Y',review:''}[x];}).join('');
+    el.innerHTML='<b>'+DAYS[d].charAt(0)+'</b><small>'+tag+'</small>'; el.setAttribute('aria-label',DAYS[d]); wk.appendChild(el);
+  });
+  var offer=document.getElementById('tdOffer'), offers=['core','row','walk'].filter(eligible);
+  if(offers.length){ offer.hidden=false; offer.querySelector('button').onclick=function(){ goId('progress'); }; } else offer.hidden=true;
+  var box=document.getElementById('tasks'); box.innerHTML=''; clearInterval(walkTick); walkTick=null;
+  tasks.forEach(function(k){
+    var row=document.createElement('div'), isDone=done(now,k); row.className='task'+(isDone?' done':'');
+    var name={core:'Core reset',row:'Easy rowing',walk:'Walk',yoga:'Yoga',review:'Weekly review'}[k];
+    var sub={core:Math.round(minutesFor('core')*10)/10+' min, 5 moves',row:Math.round(minutesFor('row'))+' min timer',walk:'about '+walkTarget()+' min, easy pace',
+      yoga:yogaSession(now).name+', 10 min. '+yogaThisWeek()+' of 3 this week',review:'See what you did this week'}[k];
+    if(k==='walk'){
+      var active=parseInt(lsGet('crg-walk-active')||'0',10), wm=walkMin(now);
+      row.innerHTML='<input type="checkbox" id="chk-walk" aria-label="Walk done"><label for="chk-walk">Walk<span class="sub">'+(active?'':(wm?wm+' min logged today':sub))+'</span></label><button type="button" class="'+(active?'stop':'')+'">'+(active?'Stop':'Start')+'</button>';
+      var subEl=row.querySelector('.sub');
+      if(active){ var upd=function(){ subEl.textContent='Walking '+fmt(Math.floor((Date.now()-active)/1000)); subEl.className='sub elapsed'; }; upd(); walkTick=setInterval(upd,1000); }
+      row.querySelector('button').addEventListener('click',function(){ if(active) walkStop(); else walkStart(); });
+    } else {
+      var target={core:'c-breath',row:'rowing',yoga:'y-'+yogaSession(now).cards[0][0],review:'week'}[k];
+      row.innerHTML='<input type="checkbox" id="chk-'+k+'" aria-label="'+name+' done"><label for="chk-'+k+'">'+name+'<span>'+sub+'</span></label><button type="button">Open</button>';
+      row.querySelector('button').addEventListener('click',function(){ goId(target); });
     }
-    go.addEventListener('click',function(){
-      if(iv){ stop(); go.textContent='Resume'; return; }
-      if(go.textContent==='Again'){ time.textContent=fmt(cfg.s); msg.textContent=''; gauge.style.width='0'; }
-      beep(0); lock(); end=Date.now()+left*1000; box.classList.add('run'); go.textContent='Pause';
-      if(go.textContent==='Pause' && left===cfg.s) msg.textContent='';
-      iv=setInterval(tick,250);
-    });
-    rs.addEventListener('click',function(){ stop(); left=cfg.s; midDone=false; time.textContent=fmt(left); msg.textContent=''; gauge.style.width='0'; go.textContent='Start'; });
+    var cb=row.querySelector('input'); cb.checked=isDone;
+    cb.addEventListener('change',function(){ if(k==='yoga') markYoga(now,cb.checked); else setDone(now,k,cb.checked); refresh(false); });
+    box.appendChild(row);
   });
+  var add=document.getElementById('addrow'); add.innerHTML='';
+  ['core','row','yoga'].forEach(function(k){
+    if(tasks.indexOf(k)>=0) return;
+    var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent='+ '+({core:'Core',row:'Rowing',yoga:'Yoga'}[k]);
+    b.addEventListener('click',function(){ lsSet('crg-'+ds(now)+'-add-'+k,'1'); refresh(true); });
+    add.appendChild(b);
+  });
+  add.hidden=!add.children.length;
+}
 
+/* ---------- Week (Sunday) ---------- */
+function gauge(el,total,planned,small){
+  el.innerHTML=''; el.style.setProperty('--n',planned);
+  for(var n=0;n<planned;n++){ var c=document.createElement('i'); if(n<total) c.className='on'; el.appendChild(c); }
+}
+function renderWeek(){
+  var days=[],m=monday(new Date()); for(var i=0;i<7;i++) days.push(addDays(m,i));
+  var core=0,row=0,yoga=0,walks=0,mins=0,grid=document.getElementById('wkGrid'); grid.innerHTML='';
+  days.forEach(function(d){
+    var c=done(d,'core'),r=done(d,'row'),y=done(d,'yoga'),w=done(d,'walk');
+    if(c)core++; if(r)row++; if(y)yoga++; if(w)walks++; mins+=walkMin(d);
+    var el=document.createElement('div'); el.className='d'; el.innerHTML='<b>'+DAYS[d.getDay()].charAt(0)+'</b><small>'+(c?'C':'')+(r?'R':'')+(y?'Y':'')+(w?'W':'')+'</small>'; grid.appendChild(el);
+  });
+  var total=Math.min(core,5)+Math.min(row,3)+Math.min(yoga,3)+Math.min(walks,3);
+  document.getElementById('wkDone').textContent=total;
+  document.getElementById('wkOf').textContent='of 14 planned sessions';
+  gauge(document.getElementById('wkBar'),total,14);
+  var wkn=Math.max(1,Math.floor((Date.now()-parseInt(lsGet('crg-start'),10))/604800000)+1);
+  document.getElementById('wkBadge').textContent='Week '+wkn;
+  document.getElementById('wkSub').textContent=days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'})+' to '+days[6].toLocaleDateString(undefined,{month:'short',day:'numeric'});
+  document.getElementById('wkList').innerHTML='<li><i>C</i><span><b>Core reset:</b> '+core+' of 5 days</span></li><li><i>R</i><span><b>Rowing:</b> '+row+' of 3 sessions</span></li><li><i>Y</i><span><b>Yoga:</b> '+yoga+' of 3 sessions</span></li><li><i>W</i><span><b>Walks:</b> '+walks+' of 3, '+mins+' min total</span></li>';
+  var up=['core','row','walk'].filter(eligible).length;
+  document.getElementById('wkNext').textContent=up?'You have a level-up waiting on the next card.':'Next week: keep the same pace. Level-ups come after 2 solid weeks in a row.';
+}
 
-  /* Schedule, logging, Today and Week views. Data stays on this device (localStorage). */
-  var DAYS=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-  var LONG=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  var SCHED={
-    0:{t:['review','rest'],note:'Rest day. Look back at your week, then rest or take an easy walk.'},
-    1:{t:['core','row'],note:'Core first, then rowing.'},
-    2:{t:['core','walk'],note:'Strength sessions join Tuesday and Thursday around week 4 to 6.'},
-    3:{t:['core','row'],note:'Core first, then rowing.'},
-    4:{t:['core','walk'],note:'Strength sessions join Tuesday and Thursday around week 4 to 6.'},
-    5:{t:['core','row'],note:'In weeks 1 and 2, you can skip Friday rowing and build up to it.'},
-    6:{t:['walk'],note:'Walk day. Add the 10-minute core routine if you feel like it.'}
-  };
-  var TASKS={
-    core:{name:'Core reset',sub:'10 min, 5 moves',go:3},
-    row:{name:'Easy rowing',sub:'10 min timer',go:8},
-    walk:{name:'Walk',sub:'20 to 30 min, easy pace',go:-1},
-    rest:{name:'Rest',sub:'Optional: 2 min ribcage breathing',go:3},
-    review:{name:'Weekly review',sub:'See what you did this week',go:1}
-  };
-  function ds(d){ return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate(); }
-  function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
-  function lsSet(k,v){ try{ localStorage.setItem(k,v); }catch(e){} }
-  function done(d,k){ return lsGet('crg-'+ds(d)+'-'+k)==='1'; }
-  function setDone(d,k,v){ lsSet('crg-'+ds(d)+'-'+k,v?'1':'0'); }
-  function walkMin(d){ return parseInt(lsGet('crg-'+ds(d)+'-walkmin')||'0',10); }
-  if(!lsGet('crg-start')) lsSet('crg-start',String(Date.now()));
+/* ---------- Your track ---------- */
+function req(ok,text){ return '<div class="req'+(ok?' ok':'')+'"><i>'+(ok?'✓':'')+'</i><span>'+text+'</span></div>'; }
+function levelDesc(t,n){
+  if(t==='core') return fmtMin(LV.core[n-1]*5)+' per session ('+fmtMin(LV.core[n-1])+' a move)';
+  if(t==='row') return fmtMin(LV.row[n-1])+' per session';
+  return LV.walk[n-1]+' min per walk';
+}
+function renderProgress(){
+  var now=new Date(), start=parseInt(lsGet('crg-start'),10), weeks=(Date.now()-start)/604800000;
+  var offers=document.getElementById('pgOffers'); offers.innerHTML='';
+  ['core','row','walk'].forEach(function(t){
+    if(!eligible(t)) return; var lv=getLv(t);
+    var o=document.createElement('div'); o.className='offer';
+    o.innerHTML='<b>'+NAMES[t]+': level '+(lv.n+1)+' is ready</b><span>2 solid weeks in a row. Next: '+levelDesc(t,lv.n+1)+'.</span><div class="btnrow"><button type="button" class="yes">Level up</button><button type="button" class="no">Not yet</button></div>';
+    o.querySelector('.yes').onclick=function(){ setLv(t,{n:lv.n+1,since:addDays(monday(new Date()),7).getTime()}); refresh(true); };
+    o.querySelector('.no').onclick=function(){ lsSet('crg-snooze-'+t,String(monday(new Date()).getTime())); offers.removeChild(o); };
+    if(lsGet('crg-snooze-'+t)!==String(monday(new Date()).getTime())) offers.appendChild(o);
+  });
+  var list=document.getElementById('pgTracks'); list.innerHTML='';
+  var mon=monday(new Date());
+  ['core','row','walk'].forEach(function(t){
+    var lv=getLv(t), max=LV[t].length, wc=weekCount(t,mon), s=solid(t);
+    var el=document.createElement('div'); el.className='trk';
+    el.innerHTML='<h3><span>'+NAMES[t]+'</span><span>Level '+lv.n+(lv.n>=max?' (top)':'')+'</span></h3><div class="sub">'+levelDesc(t,lv.n)+'</div><div class="mini" aria-label="This week"></div><div class="sub">This week: '+wc+' of '+PLAN[t]+(lv.n<max?'. Solid weeks: '+s+' of 2 for level '+(lv.n+1)+'.':'.')+'</div>';
+    gauge(el.querySelector('.mini'),wc,PLAN[t]); list.appendChild(el);
+  });
+  var y=document.createElement('div'); y.className='trk';
+  y.innerHTML='<h3><span>Yoga</span><span>Goal 3 a week</span></h3><div class="sub">10 min, 3 rotating sessions</div><div class="mini"></div><div class="sub">This week: '+yogaThisWeek()+' of 3. Offered every day.</div>';
+  gauge(y.querySelector('.mini'),yogaThisWeek(),3); list.appendChild(y);
+  /* total time */
+  var best=0; for(var d=0;d<7;d++){ var m=0; SCHED[d].t.forEach(function(t){ m+=minutesFor(t); }); if(SCHED[d].t.indexOf('walk')>=0) m-=walkTarget(); best=Math.max(best,m); }
+  var tot=document.getElementById('pgTotal'); tot.innerHTML='<b>'+Math.round(best)+'</b><span>min on your busiest day, before walks. Goal: 60.</span>';
+  gauge(document.getElementById('pgTotBar'),Math.round(best/5),12);
+  /* locked */
+  var cl=getLv('core').n, rl=getLv('row').n, wl2=getLv('walk').n;
+  var sOk=[cl>=2,rl>=2,weeks>=4]; var sAll=sOk.every(Boolean);
+  var lk=document.getElementById('pgLocked');
+  var jog1=lsGet('crg-jog-a')==='1', jog2=lsGet('crg-jog-b')==='1', jAll=(wl2>=3&&jog1&&jog2);
+  lk.innerHTML='<div class="trk locked"><h3><span>Strength</span><span>'+(sAll?'Ready':'Locked')+'</span></h3>'
+    +req(sOk[0],'Core at level 2')+req(sOk[1],'Rowing at level 2')+req(sOk[2],'4 weeks of training')
+    +'<div class="sub">'+(sAll?'Unlocked. Dumbbell sessions (3, 5, 8, 10 lb) arrive in the next update.':'Dumbbell sessions on Tuesday and Thursday.')+'</div></div>'
+    +'<div class="trk locked"><h3><span>Jog intervals</span><span>'+(jAll?'Ready':'Locked')+'</span></h3>'
+    +req(wl2>=3,'Walking at level 3')
+    +'<label class="req'+(jog1?' ok':'')+'"><input type="checkbox" id="jogA"'+(jog1?' checked':'')+'><span>3 weeks with no leaking, heaviness or doming</span></label>'
+    +'<label class="req'+(jog2?' ok':'')+'"><input type="checkbox" id="jogB"'+(jog2?' checked':'')+'><span>A pelvic floor PT or doctor cleared me for impact</span></label>'
+    +'<div class="sub">'+(jAll?'Unlocked. Jog and sprint intervals arrive in the next update.':'Impact work stays locked until all three are true.')+'</div></div>';
+  document.getElementById('jogA').onchange=function(e){ lsSet('crg-jog-a',e.target.checked?'1':'0'); renderProgress(); };
+  document.getElementById('jogB').onchange=function(e){ lsSet('crg-jog-b',e.target.checked?'1':'0'); renderProgress(); };
+}
 
-  function monday(){ var d=new Date(); d.setHours(12,0,0,0); d.setDate(d.getDate()-((d.getDay()+6)%7)); return d; }
-  function weekDays(){ var m=monday(),r=[]; for(var i=0;i<7;i++){ var x=new Date(m); x.setDate(m.getDate()+i); r.push(x); } return r; }
-
-  /* Walk start and stop. The start time is saved, so it survives closing the app. */
-  var walkTick=null;
-  function walkStart(){ lsSet('crg-walk-active',String(Date.now())); renderToday(); }
-  function walkStop(){
-    var t=parseInt(lsGet('crg-walk-active')||'0',10); if(!t) return;
-    var mins=Math.max(1,Math.round((Date.now()-t)/60000)), today=new Date();
-    lsSet('crg-'+ds(today)+'-walkmin',String(walkMin(today)+mins));
-    lsSet('crg-walk-active','');
-    setDone(today,'walk',true); renderToday(); renderWeek();
-  }
-
-  function renderToday(){
-    var now=new Date(), dow=now.getDay(), day=SCHED[dow];
-    document.getElementById('tdTitle').textContent=LONG[dow];
-    document.getElementById('tdSub').textContent="Today's routine";
-    document.getElementById('tdNote').textContent=day.note;
-    var wk=document.getElementById('week'); wk.innerHTML='';
-    [1,2,3,4,5,6,0].forEach(function(d){
-      var el=document.createElement('div'); el.className='day'+(d===dow?' today':'');
-      var tag=SCHED[d].t.map(function(x){return {core:'C',row:'R',walk:'W',rest:'-',review:''}[x];}).join('');
-      el.innerHTML='<b>'+DAYS[d].charAt(0)+'</b><small>'+tag+'</small>'; el.setAttribute('aria-label',DAYS[d]); wk.appendChild(el);
-    });
-    var box=document.getElementById('tasks'); box.innerHTML='';
-    clearInterval(walkTick); walkTick=null;
-    day.t.forEach(function(k){
-      var T=TASKS[k], row=document.createElement('div'), isDone=done(now,k);
-      row.className='task'+(isDone?' done':'');
-      if(k==='walk'){
-        var active=parseInt(lsGet('crg-walk-active')||'0',10);
-        var mins=walkMin(now);
-        row.innerHTML='<input type="checkbox" id="chk-walk" aria-label="Walk done"><label for="chk-walk">Walk<span class="sub">'+(active?'':(mins?mins+' min logged today':T.sub))+'</span></label><button type="button" class="'+(active?'stop':'')+'">'+(active?'Stop':'Start')+'</button>';
-        var sub=row.querySelector('.sub');
-        if(active){
-          var upd=function(){ var s=Math.floor((Date.now()-active)/1000); sub.textContent='Walking '+fmt(s); sub.className='sub elapsed'; };
-          upd(); walkTick=setInterval(upd,1000);
-        }
-        row.querySelector('button').addEventListener('click',function(){ if(active) walkStop(); else walkStart(); });
-      } else {
-        row.innerHTML='<input type="checkbox" id="chk-'+k+'" aria-label="'+T.name+' done"><label for="chk-'+k+'">'+T.name+'<span>'+T.sub+'</span></label>'+(T.go>=0?'<button type="button">Open</button>':'<span></span>');
-        var b=row.querySelector('button'); if(b) b.addEventListener('click',function(){ go(T.go); });
-      }
-      var cb=row.querySelector('input'); cb.checked=isDone;
-      cb.addEventListener('change',function(){ setDone(now,k,cb.checked); row.classList.toggle('done',cb.checked); renderWeek(); });
-      box.appendChild(row);
-    });
-  }
-
-  function renderWeek(){
-    var days=weekDays(), today=new Date(), t0=ds(today);
-    var core=0,row=0,walks=0,mins=0,grid=document.getElementById('wkGrid'); grid.innerHTML='';
-    days.forEach(function(d,i){
-      var c=done(d,'core'),r=done(d,'row'),w=done(d,'walk');
-      if(c) core++; if(r) row++; if(w) walks++; mins+=walkMin(d);
-      var el=document.createElement('div'); el.className='d';
-      el.innerHTML='<b>'+DAYS[d.getDay()].charAt(0)+'</b><small>'+(c?'C':'')+(r?'R':'')+(w?'W':'')+'</small>';
-      grid.appendChild(el);
-    });
-    var total=core+row+walks, planned=11;
-    document.getElementById('wkDone').textContent=total;
-    document.getElementById('wkOf').textContent='of '+planned+' planned sessions';
-    var g=document.getElementById('wkBar'); g.innerHTML=''; for(var n=0;n<planned;n++){ var c=document.createElement('i'); if(n<total) c.className='on'; g.appendChild(c); }
-    var wkn=Math.max(1,Math.floor((Date.now()-parseInt(lsGet('crg-start'),10))/604800000)+1);
-    document.getElementById('wkBadge').textContent='Week '+wkn;
-    document.getElementById('wkSub').textContent=days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'})+' to '+days[6].toLocaleDateString(undefined,{month:'short',day:'numeric'});
-    var L=document.getElementById('wkList');
-    L.innerHTML='<li><i>C</i><span><b>Core reset:</b> '+core+' of 5 days</span></li><li><i>R</i><span><b>Rowing:</b> '+row+' of 3 sessions</span></li><li><i>W</i><span><b>Walks:</b> '+walks+' of 3 sessions, '+mins+' min total</span></li>';
-    var nxt=wkn<=2?'Next week: keep the core routine daily and rowing at 10 minutes. Add Friday rowing when it feels easy.':wkn<=4?'Next week: keep rowing 2 to 3 days. Strength sessions on Tuesday and Thursday start soon.':'Next week: add rowing time or effort, but only one of the two. Strength sessions run Tuesday and Thursday.';
-    document.getElementById('wkNext').textContent=nxt;
-  }
-
-  /* A timer that finishes logs its task. All five core moves finished counts as the core routine. */
-  window.crgTimerDone=function(i){
-    var now=new Date();
-    if(i===8) setDone(now,'row',true);
-    if(i>=3&&i<=7){
-      lsSet('crg-'+ds(now)+'-t'+i,'1');
-      var all=[3,4,5,6,7].every(function(n){ return lsGet('crg-'+ds(now)+'-t'+n)==='1'; });
-      if(all) setDone(now,'core',true);
-    }
-    renderToday(); renderWeek();
-  };
-
-  renderToday(); renderWeek();
-  document.addEventListener('visibilitychange',function(){ if(!document.hidden){ renderToday(); renderWeek(); } });
-  sync();
+/* ---------- refresh ---------- */
+var deckDay=ds(new Date());
+function refresh(rebuild){
+  if(ds(new Date())!==deckDay){ deckDay=ds(new Date()); rebuild=true; }
+  if(rebuild){ buildDeck(); jump(Math.min(cur,deck.length-1)); }
+  renderToday(); renderWeek(); renderProgress(); syncClone(); sync();
+}
+document.getElementById('helpBtn').addEventListener('click',function(){ guideOpen=true; refresh(true); goId('guide'); });
+document.getElementById('guideClose').addEventListener('click',function(){ guideOpen=false; refresh(true); jump(0); });
+document.addEventListener('visibilitychange',function(){ if(!document.hidden) refresh(false); });
+buildDeck(); renderToday(); renderWeek(); renderProgress(); syncClone(); sync();
+if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 })();
-if("serviceWorker" in navigator){ window.addEventListener("load",function(){ navigator.serviceWorker.register("sw.js").catch(function(){}); }); }
+
 </script>
 </body>
 </html>
