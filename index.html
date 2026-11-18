@@ -179,7 +179,7 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
     <li><i>→</i><span>Swipe through today's routine. It ends on Your track, then loops back to Today.</span></li>
     <li><i>○</i><span>Pictures loop on their own. Tap one to freeze it. Orange marks where to feel the move.</span></li>
     <li><i>●</i><span><b>Pelvic floor lift:</b> a gentle lift at about 30% effort, as if stopping a stream of urine. Fully release on the way back.</span></li>
-    <li><i>↑</i><span>Levels go up after 2 solid weeks in a row. You always choose when.</span></li>
+    <li><i>↑</i><span>Levels go up after 2 weeks in a row at 80% (11 of 14 sessions). You always choose when.</span></li>
   </ul>
   <div class="watch"><b>Stop</b> if you notice leaking, pelvic heaviness, or a ridge or doming down the middle of your belly.</div>
   <div class="tasks"><button type="button" class="chip solid" id="guideClose">Close guide</button></div>
@@ -484,7 +484,8 @@ var LONG=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
 /* ---------- plan, levels ---------- */
 var LV={core:[120,150,180],row:[600,900,1200,1500],walk:[20,30,40,45]};   /* seconds per core move, rowing seconds, walk minutes */
 var PLAN={core:5,row:3,walk:3,yoga:3};
-var NEED={core:4,row:2,walk:2};
+var NEED={core:1,row:1,walk:1};
+function weekTotal(mon){ return Math.min(weekCount('core',mon),5)+Math.min(weekCount('row',mon),3)+Math.min(weekCount('yoga',mon),3)+Math.min(weekCount('walk',mon),3); }
 var NAMES={core:'Core reset',row:'Rowing',walk:'Walking',yoga:'Yoga'};
 var SCHED={
   0:{t:['review','yoga'],note:'Rest day. Look back at your week. Yoga is optional.'},
@@ -507,7 +508,7 @@ function getLv(t){ try{ var v=JSON.parse(lsGet('crg-lv-'+t)); if(v&&v.n) return 
 function setLv(t,v){ lsSet('crg-lv-'+t,JSON.stringify(v)); }
 function weekCount(t,mon){ var c=0; for(var i=0;i<7;i++){ if(done(addDays(mon,i),t)) c++; } return c; }
 function solid(t){ var lv=getLv(t),n=0,cm=monday(new Date());
-  for(var k=1;k<=2;k++){ var m=addDays(cm,-7*k); if(m.getTime()<lv.since) break; if(weekCount(t,m)>=NEED[t]) n++; else break; }
+  for(var k=1;k<=2;k++){ var m=addDays(cm,-7*k); if(m.getTime()<lv.since) break; if(weekTotal(m)>=11 && weekCount(t,m)>=NEED[t]) n++; else break; }
   return n; }
 function eligible(t){ return solid(t)>=2 && getLv(t).n<LV[t].length; }
 function coreSecs(){ return LV.core[getLv('core').n-1]; }
@@ -720,7 +721,7 @@ function renderWeek(){
   document.getElementById('wkSub').textContent=days[0].toLocaleDateString(undefined,{month:'short',day:'numeric'})+' to '+days[6].toLocaleDateString(undefined,{month:'short',day:'numeric'});
   document.getElementById('wkList').innerHTML='<li><i>C</i><span><b>Core reset:</b> '+core+' of 5 days</span></li><li><i>R</i><span><b>Rowing:</b> '+row+' of 3 sessions</span></li><li><i>Y</i><span><b>Yoga:</b> '+yoga+' of 3 sessions</span></li><li><i>W</i><span><b>Walks:</b> '+walks+' of 3, '+mins+' min total</span></li>';
   var up=['core','row','walk'].filter(eligible).length;
-  document.getElementById('wkNext').textContent=up?'You have a level-up waiting on the next card.':'Next week: keep the same pace. Level-ups come after 2 solid weeks in a row.';
+  document.getElementById('wkNext').textContent=up?'You have a level-up waiting on the next card.':'Next week: keep the same pace. Level-ups come after 2 weeks in a row at 80% (11 of 14 sessions).';
 }
 
 /* ---------- Your track ---------- */
@@ -736,7 +737,7 @@ function renderProgress(){
   ['core','row','walk'].forEach(function(t){
     if(!eligible(t)) return; var lv=getLv(t);
     var o=document.createElement('div'); o.className='offer';
-    o.innerHTML='<b>'+NAMES[t]+': level '+(lv.n+1)+' is ready</b><span>2 solid weeks in a row. Next: '+levelDesc(t,lv.n+1)+'.</span><div class="btnrow"><button type="button" class="yes">Level up</button><button type="button" class="no">Not yet</button></div>';
+    o.innerHTML='<b>'+NAMES[t]+': level '+(lv.n+1)+' is ready</b><span>2 weeks in a row at 80% or more. Next: '+levelDesc(t,lv.n+1)+'.</span><div class="btnrow"><button type="button" class="yes">Level up</button><button type="button" class="no">Not yet</button></div>';
     o.querySelector('.yes').onclick=function(){ setLv(t,{n:lv.n+1,since:addDays(monday(new Date()),7).getTime()}); refresh(true); };
     o.querySelector('.no').onclick=function(){ lsSet('crg-snooze-'+t,String(monday(new Date()).getTime())); offers.removeChild(o); };
     if(lsGet('crg-snooze-'+t)!==String(monday(new Date()).getTime())) offers.appendChild(o);
@@ -746,7 +747,7 @@ function renderProgress(){
   ['core','row','walk'].forEach(function(t){
     var lv=getLv(t), max=LV[t].length, wc=weekCount(t,mon), s=solid(t);
     var el=document.createElement('div'); el.className='trk';
-    el.innerHTML='<h3><span>'+NAMES[t]+'</span><span>Level '+lv.n+(lv.n>=max?' (top)':'')+'</span></h3><div class="sub">'+levelDesc(t,lv.n)+'</div><div class="mini" aria-label="This week"></div><div class="sub">This week: '+wc+' of '+PLAN[t]+(lv.n<max?'. Solid weeks: '+s+' of 2 for level '+(lv.n+1)+'.':'.')+'</div>';
+    el.innerHTML='<h3><span>'+NAMES[t]+'</span><span>Level '+lv.n+(lv.n>=max?' (top)':'')+'</span></h3><div class="sub">'+levelDesc(t,lv.n)+'</div><div class="mini" aria-label="This week"></div><div class="sub">This week: '+wc+' of '+PLAN[t]+(lv.n<max?'. Weeks at 80%+: '+s+' of 2 for level '+(lv.n+1)+'.':'.')+'</div>';
     gauge(el.querySelector('.mini'),wc,PLAN[t]); list.appendChild(el);
   });
   var y=document.createElement('div'); y.className='trk';
