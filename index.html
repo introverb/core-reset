@@ -155,6 +155,19 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 .hbtn{font:700 13px/1 var(--mono);width:30px;height:30px;border:2.5px solid var(--ink);border-radius:50%;background:transparent;color:var(--ink);cursor:pointer}
 .hdr-r{display:flex;align-items:center;gap:8px}
 .bigstat#pgTotal b{font-size:48px}
+
+.wkart{flex:1;min-height:150px;border:3px solid var(--ink);background:var(--paper);overflow:hidden;position:relative}
+.wkart svg{position:absolute;inset:0;width:100%;height:100%;display:block}
+.tl{border-left:3px solid var(--ink);margin-left:8px;display:flex;flex-direction:column}
+.st{position:relative;padding:0 0 20px 18px;display:flex;flex-direction:column;gap:6px}
+.st::before{content:"";position:absolute;left:-11px;top:1px;width:19px;height:19px;background:var(--paper);border:3px solid var(--ink)}
+.st.here::before{background:var(--org)}
+.st .wk{font:700 11px var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.st .wk em{font-style:normal;background:var(--org);color:var(--ink);border:2px solid var(--ink);padding:2px 6px;margin-left:8px}
+.st h3{margin:0;font:700 18px/1.1 var(--display);text-transform:uppercase;letter-spacing:.03em}
+.st .sub{font:400 12px/1.35 var(--mono);color:var(--muted)}
+.st ul{margin:0;padding-left:18px;font-size:14px;line-height:1.4}
+.st .tot{font:700 12px var(--mono);border:2px solid var(--ink);padding:5px 8px;align-self:flex-start}
 </style>
 </head>
 <body>
@@ -163,7 +176,7 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
 <section class="card" data-id="today">
 <div class="inner">
   <div class="top"><div><h2 id="tdTitle">Today</h2><p class="tag" id="tdSub"></p></div></div>
-  <div class="hero"><svg viewBox="0 0 320 84" role="img" aria-label="Hourglass grid"><polygon points="10,6 310,6 174,42.0 310,78 10,78 146,42.0" fill="none" stroke="#121212" stroke-width="3" stroke-linejoin="round"/><line x1="23.6" y1="9.6" x2="296.4" y2="9.6" stroke="#121212" stroke-width="1.4"/><line x1="23.6" y1="74.4" x2="296.4" y2="74.4" stroke="#121212" stroke-width="1.4"/><line x1="37.2" y1="13.2" x2="282.8" y2="13.2" stroke="#121212" stroke-width="1.4"/><line x1="37.2" y1="70.8" x2="282.8" y2="70.8" stroke="#121212" stroke-width="1.4"/><line x1="50.8" y1="16.8" x2="269.2" y2="16.8" stroke="#121212" stroke-width="1.4"/><line x1="50.8" y1="67.2" x2="269.2" y2="67.2" stroke="#121212" stroke-width="1.4"/><line x1="64.4" y1="20.4" x2="255.6" y2="20.4" stroke="#121212" stroke-width="1.4"/><line x1="64.4" y1="63.6" x2="255.6" y2="63.6" stroke="#121212" stroke-width="1.4"/><line x1="78.0" y1="24.0" x2="242.0" y2="24.0" stroke="#121212" stroke-width="1.4"/><line x1="78.0" y1="60.0" x2="242.0" y2="60.0" stroke="#121212" stroke-width="1.4"/><line x1="91.6" y1="27.6" x2="228.4" y2="27.6" stroke="#121212" stroke-width="1.4"/><line x1="91.6" y1="56.4" x2="228.4" y2="56.4" stroke="#121212" stroke-width="1.4"/><line x1="105.2" y1="31.2" x2="214.8" y2="31.2" stroke="#121212" stroke-width="1.4"/><line x1="105.2" y1="52.8" x2="214.8" y2="52.8" stroke="#121212" stroke-width="1.4"/><line x1="118.8" y1="34.8" x2="201.2" y2="34.8" stroke="#121212" stroke-width="1.4"/><line x1="118.8" y1="49.2" x2="201.2" y2="49.2" stroke="#121212" stroke-width="1.4"/><line x1="132.4" y1="38.4" x2="187.6" y2="38.4" stroke="#121212" stroke-width="1.4"/><line x1="132.4" y1="45.6" x2="187.6" y2="45.6" stroke="#121212" stroke-width="1.4"/><line x1="35.0" y1="6" x2="148.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="148.3" y1="42.0" x2="35.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="60.0" y1="6" x2="150.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="150.7" y1="42.0" x2="60.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="85.0" y1="6" x2="153.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="153.0" y1="42.0" x2="85.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="110.0" y1="6" x2="155.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="155.3" y1="42.0" x2="110.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="135.0" y1="6" x2="157.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="157.7" y1="42.0" x2="135.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="160.0" y1="6" x2="160.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="160.0" y1="42.0" x2="160.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="185.0" y1="6" x2="162.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="162.3" y1="42.0" x2="185.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="210.0" y1="6" x2="164.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="164.7" y1="42.0" x2="210.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="235.0" y1="6" x2="167.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="167.0" y1="42.0" x2="235.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="260.0" y1="6" x2="169.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="169.3" y1="42.0" x2="260.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="285.0" y1="6" x2="171.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="171.7" y1="42.0" x2="285.0" y2="78" stroke="#121212" stroke-width="1.4"/><circle cx="160" cy="42.0" r="5" fill="#f04a1f" stroke="#121212" stroke-width="2"/></svg><div class="kj" aria-label="Return">戻</div></div>
+  <div class="hero"><svg viewBox="0 0 320 84" role="img" aria-label="Hourglass grid"><polygon points="10,6 310,6 174,42.0 310,78 10,78 146,42.0" fill="none" stroke="#121212" stroke-width="3" stroke-linejoin="round"/><line x1="23.6" y1="9.6" x2="296.4" y2="9.6" stroke="#121212" stroke-width="1.4"/><line x1="23.6" y1="74.4" x2="296.4" y2="74.4" stroke="#121212" stroke-width="1.4"/><line x1="37.2" y1="13.2" x2="282.8" y2="13.2" stroke="#121212" stroke-width="1.4"/><line x1="37.2" y1="70.8" x2="282.8" y2="70.8" stroke="#121212" stroke-width="1.4"/><line x1="50.8" y1="16.8" x2="269.2" y2="16.8" stroke="#121212" stroke-width="1.4"/><line x1="50.8" y1="67.2" x2="269.2" y2="67.2" stroke="#121212" stroke-width="1.4"/><line x1="64.4" y1="20.4" x2="255.6" y2="20.4" stroke="#121212" stroke-width="1.4"/><line x1="64.4" y1="63.6" x2="255.6" y2="63.6" stroke="#121212" stroke-width="1.4"/><line x1="78.0" y1="24.0" x2="242.0" y2="24.0" stroke="#121212" stroke-width="1.4"/><line x1="78.0" y1="60.0" x2="242.0" y2="60.0" stroke="#121212" stroke-width="1.4"/><line x1="91.6" y1="27.6" x2="228.4" y2="27.6" stroke="#121212" stroke-width="1.4"/><line x1="91.6" y1="56.4" x2="228.4" y2="56.4" stroke="#121212" stroke-width="1.4"/><line x1="105.2" y1="31.2" x2="214.8" y2="31.2" stroke="#121212" stroke-width="1.4"/><line x1="105.2" y1="52.8" x2="214.8" y2="52.8" stroke="#121212" stroke-width="1.4"/><line x1="118.8" y1="34.8" x2="201.2" y2="34.8" stroke="#121212" stroke-width="1.4"/><line x1="118.8" y1="49.2" x2="201.2" y2="49.2" stroke="#121212" stroke-width="1.4"/><line x1="132.4" y1="38.4" x2="187.6" y2="38.4" stroke="#121212" stroke-width="1.4"/><line x1="132.4" y1="45.6" x2="187.6" y2="45.6" stroke="#121212" stroke-width="1.4"/><line x1="35.0" y1="6" x2="148.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="148.3" y1="42.0" x2="35.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="60.0" y1="6" x2="150.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="150.7" y1="42.0" x2="60.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="85.0" y1="6" x2="153.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="153.0" y1="42.0" x2="85.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="110.0" y1="6" x2="155.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="155.3" y1="42.0" x2="110.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="135.0" y1="6" x2="157.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="157.7" y1="42.0" x2="135.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="160.0" y1="6" x2="160.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="160.0" y1="42.0" x2="160.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="185.0" y1="6" x2="162.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="162.3" y1="42.0" x2="185.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="210.0" y1="6" x2="164.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="164.7" y1="42.0" x2="210.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="235.0" y1="6" x2="167.0" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="167.0" y1="42.0" x2="235.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="260.0" y1="6" x2="169.3" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="169.3" y1="42.0" x2="260.0" y2="78" stroke="#121212" stroke-width="1.4"/><line x1="285.0" y1="6" x2="171.7" y2="42.0" stroke="#121212" stroke-width="1.4"/><line x1="171.7" y1="42.0" x2="285.0" y2="78" stroke="#121212" stroke-width="1.4"/><circle cx="160" cy="42.0" r="5" fill="#f04a1f" stroke="#121212" stroke-width="2"/></svg><div class="kj" id="tdKj" aria-label="Today">戻</div></div>
   <div class="week" id="week"></div>
   <div class="offer small" id="tdOffer" hidden><b>A level-up is ready</b><button type="button">See it</button></div>
   <div class="tasks" id="tasks"></div>
@@ -431,6 +444,7 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
   <ul class="cues" id="wkList"></ul>
   <div class="wkgrid" id="wkGrid"></div>
   <div class="watch" id="wkNext"></div>
+  <div class="wkart"><svg viewBox="0 0 320 220" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Seven rising steps, one for each day of the week"><rect width="320" height="220" fill="#e7e4df"/><circle cx="160" cy="104" r="62" fill="#f04a1f" stroke="#121212" stroke-width="3"/><rect x="0" y="104" width="320" height="116" fill="#e7e4df"/><line x1="0" y1="104" x2="320" y2="104" stroke="#121212" stroke-width="3"/><line x1="160" y1="104" x2="-176" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="-134" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="-92" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="-50" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="-8" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="34" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="76" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="118" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="160" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="202" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="244" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="286" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="328" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="370" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="412" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="454" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="160" y1="104" x2="496" y2="220" stroke="#121212" stroke-width="1.2"/><line x1="0" y1="112" x2="320" y2="112" stroke="#121212" stroke-width="1.2"/><line x1="0" y1="124" x2="320" y2="124" stroke="#121212" stroke-width="1.2"/><line x1="0" y1="140" x2="320" y2="140" stroke="#121212" stroke-width="1.2"/><line x1="0" y1="162" x2="320" y2="162" stroke="#121212" stroke-width="1.2"/><line x1="0" y1="192" x2="320" y2="192" stroke="#121212" stroke-width="1.2"/><rect x="22" y="172" width="28" height="14" fill="#e7e4df" stroke="#121212" stroke-width="3"/><text x="36" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">M</text><rect x="62" y="163" width="28" height="23" fill="#e7e4df" stroke="#121212" stroke-width="3"/><text x="76" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">T</text><rect x="102" y="154" width="28" height="32" fill="#e7e4df" stroke="#121212" stroke-width="3"/><text x="116" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">W</text><rect x="142" y="145" width="28" height="41" fill="#e7e4df" stroke="#121212" stroke-width="3"/><text x="156" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">T</text><rect x="182" y="136" width="28" height="50" fill="#e7e4df" stroke="#121212" stroke-width="3"/><text x="196" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">F</text><rect x="222" y="127" width="28" height="59" fill="#e7e4df" stroke="#121212" stroke-width="3"/><text x="236" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">S</text><rect x="262" y="118" width="28" height="68" fill="#f04a1f" stroke="#121212" stroke-width="3"/><text x="276" y="205" text-anchor="middle" font-family="IBM Plex Mono,monospace" font-weight="700" font-size="11" fill="#121212">S</text><text x="160" y="98" text-anchor="middle" font-family="Noto Sans JP,Hiragino Sans,Yu Gothic,sans-serif" font-weight="900" font-size="54" fill="#121212">週</text></svg></div>
 </div>
 </section>
 
@@ -441,10 +455,19 @@ button:focus-visible{outline:3px solid var(--org);outline-offset:2px}
   <div class="tasks" id="pgTracks"></div>
   <div class="trk"><h3><span>Daily time</span><span>Build to 60</span></h3><div class="bigstat" id="pgTotal"></div><div class="gauge11 g12" id="pgTotBar"></div></div>
   <div class="tasks" id="pgLocked"></div>
+  <div class="tasks"><button type="button" class="chip solid" id="planBtn">See the 6-month plan</button></div>
   <div class="watch"><b>Next</b> Swipe once more to return to Today.</div>
 </div>
 </section>
 
+<section class="card" data-id="plan">
+<div class="inner">
+  <div class="top"><div><h2>6-month plan</h2><p class="tag">Scroll down. Earliest typical pace</p></div></div>
+  <div class="watch">Each step is suggested only after 2 weeks at 80%. You confirm every one, and you can always wait longer.</div>
+  <div class="tl" id="planList"></div>
+  <div class="tasks"><button type="button" class="chip solid" id="planClose">Close plan</button></div>
+</div>
+</section>
 </main>
 <nav>
   <button id="prev" type="button" aria-label="Previous card">← Back</button>
@@ -462,7 +485,8 @@ var CARDS={};
 Array.prototype.forEach.call(track.querySelectorAll('.card'),function(c){ CARDS[c.getAttribute('data-id')]=c; });
 var store=document.getElementById('store');
 Array.prototype.forEach.call(track.querySelectorAll('.card'),function(c){ store.appendChild(c); });
-var deck=[], cloneEl=null, cur=0, guideOpen=false;
+var deck=[], cloneEl=null, cur=0, guideOpen=false, planOpen=false;
+function todayIdx(){ return Math.max(0,deck.indexOf('today')); }
 var REDUCED=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* ---------- storage and dates ---------- */
@@ -587,15 +611,15 @@ function markYoga(now,v){
 
 /* ---------- deck ---------- */
 function buildDeck(){
-  var now=new Date(), tasks=tasksFor(now), ids=['today'];
+  var now=new Date(), tasks=tasksFor(now), ids=['week','today'];
   if(guideOpen) ids.push('guide');
   tasks.forEach(function(t){
     if(t==='core') CORE_IDS.forEach(function(i){ ids.push(i); });
     if(t==='row') ids.push('rowing');
     if(t==='yoga') yogaSession(now).cards.forEach(function(c){ ids.push('y-'+c[0]); });
   });
-  if(now.getDay()===0) ids.push('week');
   ids.push('progress');
+  if(planOpen) ids.push('plan');
   deck=ids;
   Array.prototype.slice.call(track.children).forEach(function(c){ if(c.getAttribute('data-clone')) track.removeChild(c); else store.appendChild(c); });
   ids.forEach(function(i){ track.appendChild(CARDS[i]); });
@@ -623,7 +647,7 @@ function goId(id){ var i=deck.indexOf(id); if(i>=0) go(i); }
 var settle=null;
 function sync(){
   var i=idx();
-  if(i>=deck.length){ clearTimeout(settle); settle=setTimeout(function(){ if(idx()>=deck.length) jump(0); sync(); },120); return; }
+  if(i>=deck.length){ clearTimeout(settle); settle=setTimeout(function(){ if(idx()>=deck.length) jump(todayIdx()); sync(); },120); return; }
   cur=i; var n=deck.length;
   count.textContent=(cur+1)+' / '+n;
   fill.style.width=((cur+1)/n*100)+'%';
@@ -657,6 +681,7 @@ function yogaThisWeek(){ return weekCount('yoga',monday(new Date())); }
 function renderToday(){
   var now=new Date(), dow=now.getDay(), tasks=tasksFor(now);
   document.getElementById('tdTitle').textContent=LONG[dow];
+  var kj=document.getElementById('tdKj'); kj.textContent=['日','月','火','水','木','金','土'][dow]; kj.setAttribute('aria-label',LONG[dow]);
   var mins=0; tasks.forEach(function(t){ mins+=minutesFor(t,now); });
   document.getElementById('tdSub').textContent="Today's routine, about "+Math.round(mins)+" min";
   document.getElementById('tdNote').textContent=SCHED[dow].note;
@@ -774,17 +799,43 @@ function renderProgress(){
   document.getElementById('jogB').onchange=function(e){ lsSet('crg-jog-b',e.target.checked?'1':'0'); renderProgress(); };
 }
 
+
+/* ---------- 6-month plan ---------- */
+var STAGES=[
+ {a:1,b:2,t:'Foundation',pts:['Core reset: 10 min (2 min a move)','Rowing: 10 min, 3 days','Walks: 20 min, 3 days','Yoga: 10 min, aim for 3 a week'],tot:'About 30 min on a core and rowing day'},
+ {a:3,b:4,t:'First level-up',tag:'Earliest: after 2 weeks at 80%',pts:['Core 12.5 min','Rowing 15 min','Walks 30 min'],tot:'About 37 min'},
+ {a:5,b:8,t:'Strength unlocks',tag:'Needs Core 2, Rowing 2 and 4 weeks in',pts:['Core 15 min, rowing 20 min, walks 40 min','Dumbbells, 3 lb, Tue and Thu, about 10 min','Rib flare and pelvic floor check-in'],tot:'About 45 min'},
+ {a:9,b:12,t:'Longer rows',pts:['Rowing 25 min, walks 45 min','Dumbbells step up to 5 lb','Jog check begins: walking level 3, 3 symptom-free weeks, PT or doctor OK'],tot:'About 50 min'},
+ {a:13,b:17,t:'Jog intervals',tag:'Only if the safety check is passed',pts:['Short jog bursts inside walks','Dumbbells 8 lb','Everything else holds steady'],tot:'About 50 min'},
+ {a:18,b:22,t:'Build',pts:['Optional sprint intervals','Dumbbells 10 lb','10 min strength finisher joins rowing days'],tot:'About 60 min'},
+ {a:23,b:26,t:'The hour',pts:['Core 15 + rowing 25 + yoga 10 + strength 10','Re-check your goals: ribs, pelvic floor, strength','Choose what to keep and what to grow next'],tot:'About 60 min, before walks'}
+];
+function renderPlan(){
+  var box=document.getElementById('planList'); if(!box) return;
+  var s0=monday(new Date(parseInt(lsGet('crg-start'),10))), wk=Math.floor((monday(new Date())-s0)/604800000)+1;
+  function dt(w){ return addDays(s0,(w-1)*7).toLocaleDateString(undefined,{month:'short',day:'numeric'}); }
+  var h='';
+  STAGES.forEach(function(g){
+    var here=(wk>=g.a && wk<=g.b);
+    h+='<div class="st'+(here?' here':'')+'"><div class="wk">Week '+g.a+(g.b>g.a?' to '+g.b:'')+' · '+dt(g.a)+(here?'<em>You are here</em>':'')+'</div><h3>'+g.t+'</h3>'
+      +(g.tag?'<div class="sub">'+g.tag+'</div>':'')+'<ul>'+g.pts.map(function(p){return '<li>'+p+'</li>';}).join('')+'</ul><div class="tot">'+g.tot+'</div></div>';
+  });
+  box.innerHTML=h;
+}
+
 /* ---------- refresh ---------- */
 var deckDay=ds(new Date());
 function refresh(rebuild){
   if(ds(new Date())!==deckDay){ deckDay=ds(new Date()); rebuild=true; }
   if(rebuild){ buildDeck(); jump(Math.min(cur,deck.length-1)); }
-  renderToday(); renderWeek(); renderProgress(); syncClone(); sync();
+  renderToday(); renderWeek(); renderProgress(); renderPlan(); syncClone(); sync();
 }
+document.getElementById('planBtn').addEventListener('click',function(){ planOpen=true; refresh(true); goId('plan'); });
+document.getElementById('planClose').addEventListener('click',function(){ planOpen=false; refresh(true); jump(todayIdx()); });
 document.getElementById('helpBtn').addEventListener('click',function(){ guideOpen=true; refresh(true); goId('guide'); });
-document.getElementById('guideClose').addEventListener('click',function(){ guideOpen=false; refresh(true); jump(0); });
+document.getElementById('guideClose').addEventListener('click',function(){ guideOpen=false; refresh(true); jump(todayIdx()); });
 document.addEventListener('visibilitychange',function(){ if(!document.hidden) refresh(false); });
-buildDeck(); renderToday(); renderWeek(); renderProgress(); syncClone(); sync();
+buildDeck(); renderToday(); renderWeek(); renderProgress(); renderPlan(); syncClone(); jump(todayIdx()); sync();
 if('serviceWorker' in navigator){ window.addEventListener('load',function(){ navigator.serviceWorker.register('sw.js').catch(function(){}); }); }
 })();
 

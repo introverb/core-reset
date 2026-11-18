@@ -1,4 +1,4 @@
-const V = "core-reset-v5";
+const V = "core-reset-v6";
 const SHELL = ["./", "index.html", "manifest.webmanifest", "icon-192.png", "icon-512.png", "gifs/breathing.gif", "gifs/slides.gif", "gifs/bridge.gif", "gifs/birddog.gif", "gifs/sideplank.gif", "gifs/rowing.gif", "gifs/breathing.png", "gifs/slides.png", "gifs/bridge.png", "gifs/birddog.png", "gifs/sideplank.png", "gifs/rowing.png", "gifs/catcow.gif", "gifs/catcow.png", "gifs/child.gif", "gifs/child.png", "gifs/lunge.gif", "gifs/lunge.png", "gifs/kneehug.gif", "gifs/kneehug.png", "gifs/ragdoll.gif", "gifs/ragdoll.png", "gifs/puppy.gif", "gifs/puppy.png", "gifs/neck.gif", "gifs/neck.png", "gifs/sidebend.gif", "gifs/sidebend.png"];
 self.addEventListener("install", (e) => {
   e.waitUntil(caches.open(V).then((c) => c.addAll(SHELL)).then(() => self.skipWaiting()));
